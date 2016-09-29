@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 public class StatisticsScreen extends Parent {
@@ -77,6 +78,8 @@ public class StatisticsScreen extends Parent {
 		statsTabPane.setMinHeight(_window.GetHeight());
 		statsTabPane.setMinWidth(_window.GetWidth());
 		
+		HBox buttonRow = new HBox(20);
+		
 		Button btnReturn;
 		btnReturn = new Button(BTN_RETURN_TEXT);
 		btnReturn.setPrefWidth(BTNWIDTH_SCREENWIDTH_RATIO * _window.GetWidth());
@@ -92,7 +95,12 @@ public class StatisticsScreen extends Parent {
 			}
 		});
 		
-		root.getChildren().addAll(btnReturn, statsTabPane);
+		Button btnClear;
+		
+		
+		buttonRow.getChildren().add(buttonRow);
+		
+		root.getChildren().addAll(buttonRow, statsTabPane);
 		
 		//Adding the statspane
 		this.getChildren().add(root);

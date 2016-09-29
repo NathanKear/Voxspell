@@ -1,46 +1,54 @@
 package VoxspellPrototype;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.InputStream;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 public class MainScreen extends Parent {
 
 	private Window _window;
 		
 	// Constants gone wild!
-	private final String TXT_WELCOME = "Hello World!\n\n&\n\nWelcome to VoxSpell";
-	private final int BUTTON_SEPERATION = 6; 
-	private final int MENU_BAR_PADDING = 10;
-	private final double MENUBAR_SCREENWIDTH_RATIO = 0.333;
+	private final String TXT_WELCOME = "Welcome to VoxSpell";
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
-	private final String BTN_NEW_TEXT = "New Quiz";
-	private final String BTN_REVIEW_TEXT = "Review Mistakes";
-	private final String BTN_STATS_TEXT = "View Stats";
-	private final String BTN_CLEAR_TEXT = "Clear Stats";
+	private final String BTN_NEW_TEXT = "Quiz";
+	private final String BTN_TRIAL_TEXT = "Time-\nTrial";
+	private final String BTN_STATS_TEXT = "Stats";
+	private final String BTN_ADDLIST_TEXT = "Add\nList";
 	private final String BTN_QUIT_TEXT = "Quit";
 	private final String BTN_OPTIONS_TEXT = "Options";
 	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
 	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
 	private final String TXT_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final int BTN_LRG_WIDTH = 250;
+	private final int BTN_LRG_HEIGHT = 250;
+	private final int BTN_SML_WIDTH = 75;
+	private final int BTN_SML_HEIGHT = 75;
+	private final Insets INSETS = new Insets(30, 30, 30, 30);
+	private final int GRD_HGAP = 30;
+	private final int GRD_VGAP = 30;
 	
-	private final int TEXT_CEILING_SEPERATION = 160;
+	private final Image IMG_NEW = new Image(getClass().getResourceAsStream("/media/images/btnNewIcon.png"));
+	private final Image IMG_EXIT = new Image(getClass().getResourceAsStream("/media/images/btnExitIcon50x50.png"));
+	private final Image IMG_OPTIONS = new Image(getClass().getResourceAsStream("/media/images/btnOptionsIcon50x50.png"));
+	private final Image IMG_ADDLIST = new Image(getClass().getResourceAsStream("/media/images/btnImportQuiz.png"));
+	private final Image IMG_STATS = new Image(getClass().getResourceAsStream("/media/images/btnStatsIcon.png"));
+	private final Image IMG_TRIAL = new Image(getClass().getResourceAsStream("/media/images/btnTrialIcon.png"));
 	
 	
 	public MainScreen(Window window) {
@@ -49,68 +57,49 @@ public class MainScreen extends Parent {
 		this._window = window;
 		
 		// Create root node and set its size
-		HBox root = new HBox(0);
+		GridPane root = new GridPane();
 		root.setPrefWidth(_window.GetWidth());
 		root.setPrefHeight(_window.GetHeight());
+		root.setHgap(GRD_HGAP);
+		root.setVgap(GRD_VGAP);
+		root.getColumnConstraints().add(new ColumnConstraints(75));
+		root.setGridLinesVisible(false);
+		root.setPadding(INSETS);
 		
-		// Create menu bar
-		double menuBarWidth = _window.GetWidth() * MENUBAR_SCREENWIDTH_RATIO;
-		Pane menuPane = buildMenuBar(menuBarWidth);
-		
+		// Create welcome window text
 		Text welcomeText = new Text(TXT_WELCOME);
-		
-		// Set text area width to that remaining of windows width after
-		// menu bar width and padding is removed
-		welcomeText.setWrappingWidth( root.getPrefWidth()
-				- menuPane.getPrefWidth() 
-				- menuPane.getPadding().getLeft() 
-				- menuPane.getPadding().getRight());
-		
 		// Center align text
-		welcomeText.setTextAlignment(TextAlignment.CENTER);
-		
-		// Set text y translation (distance from top of window to text)
-		welcomeText.setTranslateY(TEXT_CEILING_SEPERATION);
-		
+		welcomeText.setWrappingWidth((BTN_LRG_WIDTH * 2) + GRD_HGAP);
+		welcomeText.setTextAlignment(TextAlignment.CENTER);	
 		welcomeText.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
 				" -fx-fill: " + TXT_FONT_COLOR + ";");
 		
 		// Add menu bar and text to root node
-		root.getChildren().addAll(menuPane, welcomeText);
-
-		this.getChildren().add(root);
+		root.add(welcomeText, 1, 1, 3, 1);
 		
-		// Set root node color
-		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
-	}
-	
-	private Pane buildMenuBar(double desiredWidth) {
-		Button btnNew, btnReview, btnStats, btnClear, btnQuit, btnOptions;
-
-		// Create vbox with specific dimensions
-		VBox menuButtons = new VBox(BUTTON_SEPERATION);
-		menuButtons.setPrefWidth(desiredWidth);
-		menuButtons.setPrefHeight(_window.GetHeight());
-
-		// Create buttons
-		btnNew = new Button(BTN_NEW_TEXT);
-		btnReview = new Button(BTN_REVIEW_TEXT);
-		btnStats = new Button(BTN_STATS_TEXT);
-		btnClear = new Button(BTN_CLEAR_TEXT);
-		btnQuit = new Button(BTN_QUIT_TEXT);
-		btnOptions = new Button(BTN_OPTIONS_TEXT);
+		Button btnNew, btnTrial, btnStats, btnAddList, btnQuit, btnOptions;
+		
+		// Create buttons		
+		btnNew = new Button(BTN_NEW_TEXT, new ImageView(IMG_NEW));
+		btnTrial = new Button(BTN_TRIAL_TEXT, new ImageView(IMG_TRIAL));
+		btnStats = new Button(BTN_STATS_TEXT, new ImageView(IMG_STATS));
+		btnAddList = new Button(BTN_ADDLIST_TEXT, new ImageView(IMG_ADDLIST));
+		btnQuit = new Button("", new ImageView(IMG_EXIT));
+		btnOptions = new Button("", new ImageView(IMG_OPTIONS));
+		
+		
 		
 		// Set button style properties
 		btnNew.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-		btnReview.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
+		btnTrial.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		btnStats.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-		btnClear.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
+		btnAddList.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		btnQuit.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
@@ -121,30 +110,35 @@ public class MainScreen extends Parent {
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		
 		// Set width and height of buttons
-		btnNew.setMinWidth(menuButtons.getPrefWidth()); 
-		btnNew.setPrefHeight(Integer.MAX_VALUE);
+		btnNew.setPrefWidth(BTN_LRG_WIDTH); 
+		btnNew.setPrefHeight(BTN_LRG_HEIGHT);
 		
-		btnReview.setMinWidth(menuButtons.getPrefWidth()); 
-		btnReview.setPrefHeight(Integer.MAX_VALUE);
+		btnTrial.setPrefWidth(BTN_LRG_WIDTH); 
+		btnTrial.setPrefHeight(BTN_LRG_HEIGHT);
 		
-		btnStats.setMinWidth(menuButtons.getPrefWidth()); 
-		btnStats.setPrefHeight(Integer.MAX_VALUE);
+		btnStats.setPrefWidth(BTN_LRG_WIDTH); 
+		btnStats.setPrefHeight(BTN_LRG_HEIGHT);
 		
-		btnClear.setMinWidth(menuButtons.getPrefWidth()); 
-		btnClear.setPrefHeight(Integer.MAX_VALUE);
+		btnAddList.setPrefWidth(BTN_LRG_WIDTH); 
+		btnAddList.setPrefHeight(BTN_LRG_HEIGHT);
 		
-		btnQuit.setMinWidth(menuButtons.getPrefWidth()); 
-		btnQuit.setPrefHeight(Integer.MAX_VALUE);
+		btnQuit.setPrefWidth(BTN_SML_WIDTH); 
+		btnQuit.setPrefHeight(BTN_SML_HEIGHT);
 		
-		btnOptions.setMinWidth(menuButtons.getPrefWidth()); 
-		btnOptions.setPrefHeight(Integer.MAX_VALUE);
+		btnOptions.setPrefWidth(BTN_SML_WIDTH); 
+		btnOptions.setPrefHeight(BTN_SML_HEIGHT);
 		
 		// Add buttons to pane
-		menuButtons.getChildren().addAll(btnNew, btnReview, btnStats, btnClear, btnOptions, btnQuit);
+		root.add(btnNew, 1, 2);
+		root.add(btnTrial, 1, 3);
+		root.add(btnAddList, 2, 2);
+		root.add(btnStats, 2, 3);
+		root.add(btnQuit, 3, 3);
+		GridPane.setValignment(btnQuit, VPos.BOTTOM);
+		root.add(btnOptions, 0, 3);
+		GridPane.setValignment(btnOptions, VPos.BOTTOM);
 		
-		// Add padding around vbox (so buttons don't touch screen edge)
-		menuButtons.setPadding(new Insets(MENU_BAR_PADDING));
-		
+
 		// Define button actions
 		btnNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -153,7 +147,7 @@ public class MainScreen extends Parent {
 			}	
 		});
 		
-		btnReview.setOnAction(new EventHandler<ActionEvent>() {
+		btnTrial.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window, "Review_Quiz"), _window.GetWidth(), _window.GetHeight()));
@@ -167,7 +161,7 @@ public class MainScreen extends Parent {
 			}	
 		});
 		
-		btnClear.setOnAction(new EventHandler<ActionEvent>() {
+		btnAddList.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				PopupWindow.DeployPopupWindow("Cleared Statistics");
@@ -191,6 +185,9 @@ public class MainScreen extends Parent {
 			}	
 		});
 		
-		return menuButtons;
+		// Set root node color
+		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
+		
+		this.getChildren().add(root);
 	}
 }
