@@ -29,8 +29,6 @@ public class MainScreen extends Parent {
 	private final String BTN_TRIAL_TEXT = "Time-\nTrial";
 	private final String BTN_STATS_TEXT = "Stats";
 	private final String BTN_ADDLIST_TEXT = "Add\nList";
-	private final String BTN_QUIT_TEXT = "Quit";
-	private final String BTN_OPTIONS_TEXT = "Options";
 	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
 	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;

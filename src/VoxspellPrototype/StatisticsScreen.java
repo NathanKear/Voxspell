@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,6 +32,7 @@ public class StatisticsScreen extends Parent {
 	private Window _window;
 	
 	private final String BTN_RETURN_TEXT = "Return";
+	private final String BTN_CLEAR_TEXT = "Clear";
 	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
@@ -78,11 +80,13 @@ public class StatisticsScreen extends Parent {
 		statsTabPane.setMinHeight(_window.GetHeight());
 		statsTabPane.setMinWidth(_window.GetWidth());
 		
-		HBox buttonRow = new HBox(20);
+		HBox buttonRow = new HBox(10);
+		buttonRow.setPrefWidth(_window.GetWidth());
+		buttonRow.setPadding(new Insets(10, 10, 10, 10));
 		
 		Button btnReturn;
 		btnReturn = new Button(BTN_RETURN_TEXT);
-		btnReturn.setPrefWidth(BTNWIDTH_SCREENWIDTH_RATIO * _window.GetWidth());
+		btnReturn.setPrefWidth((_window.GetWidth() - 30) / 2);
 		btnReturn.setPrefHeight(BTN_HEIGHT);
 		btnReturn.setAlignment(Pos.CENTER);
 		btnReturn.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
@@ -96,9 +100,22 @@ public class StatisticsScreen extends Parent {
 		});
 		
 		Button btnClear;
+		btnClear = new Button(BTN_CLEAR_TEXT);
+		btnClear.setPrefWidth((_window.GetWidth() - 30) / 2);
+		btnClear.setPrefHeight(BTN_HEIGHT);
+		btnClear.setAlignment(Pos.CENTER);
+		btnClear.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
+				" -fx-base: " + BTN_COLOR + ";" + 
+				" -fx-text-fill: " + BTN_FONT_COLOR + ";");	
+		btnClear.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				WordList.GetWordList().ClearStats();
+				_window.SetWindowScene(new Scene(new StatisticsScreen(_window), _window.GetWidth(), _window.GetHeight()));
+			}
+		});
 		
-		
-		buttonRow.getChildren().add(buttonRow);
+		buttonRow.getChildren().addAll(btnReturn, btnClear);
 		
 		root.getChildren().addAll(buttonRow, statsTabPane);
 		
