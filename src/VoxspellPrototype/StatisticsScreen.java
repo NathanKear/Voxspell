@@ -2,6 +2,7 @@ package VoxspellPrototype;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -134,65 +135,50 @@ public class StatisticsScreen extends Parent {
 	 * @param level - the Level containing the stats for its table
 	 * @param tab - the tab where the stats table is held
 	 */
-	private void populateStatsTable(Level level, Tab tab) {
+	private void populateStatsTable(final Level level, Tab tab) {
 	
 		//Getting the levels words and stats for each word
-		HashMap<String, int[]> levelHashMap = level.getMap();
+		HashMap<String, List<Character>> levelHashMap = level.getMap();
 
 		//Creating the cell value factory for the words
-		TableColumn<Map.Entry<String, int[]>, String> statsWordCol = new TableColumn<>("Word");
-		statsWordCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String>, ObservableValue<String>>() {
+		TableColumn<Map.Entry<String, List<Character>>, String> statsWordCol = new TableColumn<>("Word");
+		statsWordCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String>, ObservableValue<String>>() {
 
 			@Override
-			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String> p) {
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String> p) {
 				return new SimpleStringProperty(p.getValue().getKey());
 			}
 		});
 		
 		//Creating the cell value factory for the failed stats
-		TableColumn<Map.Entry<String, int[]>, String> statsFailedCol = new TableColumn<>("Failed");
-		statsFailedCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String>, ObservableValue<String>>() {
+		TableColumn<Map.Entry<String, List<Character>>, String> totalAttempts = new TableColumn<>("Failed");
+		totalAttempts.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String>, ObservableValue<String>>() {
 
 			@Override
-			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String> p) {
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String> p) {
 				// this callback returns property for just one cell, you can't use a loop here
 				// for first column we use key
-				int[] statsArray = p.getValue().getValue();
-				return new SimpleStringProperty("" + statsArray[0]);
+				return new SimpleStringProperty(level.GetStatSuccessRateFormatted(p.getValue().getKey()));
 			}
 		});
 
 		//Creating the cell value factory for the faulted stats
-		TableColumn<Map.Entry<String, int[]>, String> statsFaultedCol = new TableColumn<>("Faulted");
-		statsFaultedCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String>, ObservableValue<String>>() {
+		TableColumn<Map.Entry<String, List<Character>>, String> successRate = new TableColumn<>("Faulted");
+		successRate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String>, ObservableValue<String>>() {
 
 			@Override
-			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String> p) {
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String> p) {
 				// this callback returns property for just one cell, you can't use a loop here
-				// for first column we use key
-				int[] statsArray = p.getValue().getValue();
-				return new SimpleStringProperty("" + statsArray[1]);
-			}
-		});
-
-		//Creating the cell value factory for the mastered stats
-		TableColumn<Map.Entry<String, int[]>, String> statsMasteredCol = new TableColumn<>("Mastered");
-		statsMasteredCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String>, ObservableValue<String>>() {
-
-			@Override
-			public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, int[]>, String> p) {
-				// this callback returns property for just one cell, you can't use a loop here
-				// for first column we use key
-				int[] statsArray = p.getValue().getValue();
-				return new SimpleStringProperty("" + statsArray[2]);
+				// for first column we use key				
+				return new SimpleStringProperty(Integer.toString(level.GetAttemptCount(p.getValue().getKey())));
 			}
 		});
 		
 		//Setting the data for the table
-		ObservableList<Map.Entry<String, int[]>> items = FXCollections.observableArrayList(levelHashMap.entrySet());
-		final TableView<Map.Entry<String,int[]>> table = new TableView<>(items);
+		ObservableList<Map.Entry<String, List<Character>>> items = FXCollections.observableArrayList(levelHashMap.entrySet());
+		final TableView<Map.Entry<String, List<Character>>> table = new TableView<>(items);
 		
-		table.getColumns().setAll(statsWordCol, statsFailedCol, statsFaultedCol, statsMasteredCol);
+		table.getColumns().setAll(statsWordCol, totalAttempts, successRate);
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

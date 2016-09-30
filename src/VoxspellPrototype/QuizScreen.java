@@ -54,17 +54,12 @@ public class QuizScreen extends Parent {
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 	
 
-	public QuizScreen(Window window, String wordlistName, LevelSelectionScreen.QuizType quizType) {
+	public QuizScreen(Window window, String wordlistName) {
 		this._window = window;
 
 		_level = wordlistName;
-
-		// Get words for this quiz
-		if(quizType == LevelSelectionScreen.QuizType.NORMAL_QUIZ) {
-			_words = WordList.GetWordList().GetRandomWords(wordlistName, VoxspellPrototype.QUIZ_LENGTH);
-		} else {
-			_words = WordList.GetWordList().GetRandomFailedWords(wordlistName, VoxspellPrototype.QUIZ_LENGTH);
-		}
+		
+		_words = WordList.GetWordList().GetRandomWords(wordlistName, VoxspellPrototype.QUIZ_LENGTH);
 
 		// Create root pane and set its size to whole window
 		VBox root = new VBox(VBX_SPACING);
@@ -198,39 +193,18 @@ public class QuizScreen extends Parent {
 
 
 		boolean correct = (word.toLowerCase().equals(currentWord().toLowerCase()));
-		boolean advance = false;
 		String speechOutput = "";
-
-		if (_firstGuess) {
-			if (correct) {
-				// Correct on first guess
-				_masteredWords++;
-				speechOutput = speechOutput + "Correct..";
-				WordList.GetWordList().masteredWord(currentWord(), _level);
-				advance = true;
-				_userAttempts.put(currentWord(), word);
-			} else {
-				// Incorrect on first guess
-				speechOutput = speechOutput + "Incorrect.. try again.. " + currentWord() + ".. " + currentWord() + ".";
-				_firstGuess = false;
-			}
+		
+		WordList.GetWordList().AddWordStat(currentWord(), _level, correct);
+		_userAttempts.put(currentWord(), word);
+		
+		if (correct) {
+			speechOutput = speechOutput + "Correct..";	
 		} else {
-			if (correct) {
-				// Correct on second guess
-				speechOutput = speechOutput + "Correct..";
-				WordList.GetWordList().faultedWord(currentWord(), _level);
-				advance = true;
-				_userAttempts.put(currentWord(), word);
-			} else {
-				// Incorrect on second guess
-				speechOutput = speechOutput + "Incorrect..";
-				WordList.GetWordList().failedWord(currentWord(), _level);
-				advance = true;
-				_userAttempts.put(currentWord(), word);
-			}
+			speechOutput = speechOutput + "Incorrect..";
 		}
 
-		if (advance && nextWord()) {
+		if (nextWord()) {
 			speechOutput = speechOutput + " Spell " + currentWord();
 		}
 

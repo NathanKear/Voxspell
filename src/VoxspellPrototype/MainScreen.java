@@ -141,14 +141,14 @@ public class MainScreen extends Parent {
 		btnNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window, "Normal_Quiz"), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
 		btnTrial.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window, "Review_Quiz"), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		

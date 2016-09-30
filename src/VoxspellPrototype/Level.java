@@ -1,14 +1,14 @@
 package VoxspellPrototype;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Level {
 
 	private boolean _isUnlocked = false;
-	private HashMap<String, int[]> _levelMap;
-	private ArrayList<String> _currentlyFailedList = new ArrayList<String>();
-	private ArrayList<String> _currentlyMasteredList = new ArrayList<String>();
+	private HashMap<String, List<Character>> _levelMap;
 	private String _levelName;
 
 	/**
@@ -17,7 +17,7 @@ public class Level {
 	 * @param levelName - name of level
 	 * @param levelMap - HashMap with words and stats
 	 */
-	public Level(String levelName, HashMap<String, int[]> levelMap) {
+	public Level(String levelName, HashMap<String, List<Character>> levelMap) {
 		_levelName = levelName;
 		_levelMap = levelMap;
 	}
@@ -43,7 +43,7 @@ public class Level {
 	 * 
 	 * @return
 	 */
-	public HashMap<String, int[]> getMap() {
+	public HashMap<String, List<Character>> getMap() {
 		return _levelMap;
 	}
 	
@@ -64,73 +64,108 @@ public class Level {
 	public String levelName() {
 		return _levelName;
 	}
-
+	
 	/**
-	 * Adds a word to the currently failed list
-	 * 
-	 * @param word - failed word
+	 * Add eiter a pass or fail to the words overall statistics.
+	 * @param word Word concerned
+	 * @param success TRUE if attempt was successful, FALSE if attempt was a failure.
 	 */
-	public void addToFailed(String word){
-		if(!_currentlyFailedList.contains(word)) {
-			_currentlyFailedList.add(word);
+	public void AddToWordStat(String word, boolean success) {
+		List<Character> newStat = _levelMap.get(word);
+		if (success) {
+			newStat.add('p');
+		} else {
+			newStat.add('f');
 		}
-	}
-
-	/**
-	 * Removes a word from the currently failed list
-	 * 
-	 * @param word - faulted or mastered word
-	 */
-	public void removeFromFailed(String word){
-		_currentlyFailedList.remove(word);
-	}
-
-	/**
-	 * Returns the words which are currently failed for this Level
-	 * 
-	 * @return
-	 */
-	public ArrayList<String> getFailedWords() {
-		return _currentlyFailedList;
+		_levelMap.put(word, newStat);
 	}
 	
 	/**
-	 * Adds a word to the currently mastered list
+	 * Get the statistics count for a given word
 	 * 
-	 * @param word - mastered word
+	 * @param word Word to get stats of
+	 * @param success Whether to count word success of word failures
+	 * @param history How far back to look in the words history
+	 * @return Number of successes or failures counted
 	 */
-	public void addToMastered(String word){
-		if(!_currentlyMasteredList.contains(word)) {
-			_currentlyMasteredList.add(word);
+	public int GetStatCount(String word, boolean success, int history) {
+		List<Character> wordStats = _levelMap.get(word);
+		int count = 0;
+		
+		for (int i = wordStats.size() - 1; i >= Math.max(0, wordStats.size() - history); i--) {
+			if (success && wordStats.get(i) == 'p') {
+				count++;
+			} else if (!success && wordStats.get(i) == 'f') {
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
+	public int GetAttemptCount(String word) {
+		return _levelMap.get(word).size();
+	}
+	
+	public double GetStatSuccessRate(String word) {
+		int successes = GetStatCount(word, true, Integer.MAX_VALUE);
+		int totalAttempts = GetAttemptCount(word);
+		
+		return (double)successes / totalAttempts;
+	}
+	
+	public String GetStatSuccessRateFormatted(String word) {
+		int successes = GetStatCount(word, true, Integer.MAX_VALUE);
+		int totalAttempts = GetAttemptCount(word);
+		
+		if (totalAttempts == 0)
+			return "-";
+		
+		double rate = (double)successes / totalAttempts;
+		rate *= 100.0;
+		return String.format("%.1f", rate) + "%";
+	}
+	
+	/**
+	 * Get list of unique words to use for quiz.
+	 * 
+	 * @param wordCount Words to be in list
+	 * @returnl
+	 */
+	public List<String> GetWordsBias(int wordCount) {
+		if (_levelMap.size() <= wordCount) {
+			return new ArrayList<String>(_levelMap.keySet());
+		} else {
+			List<String> pickList = new ArrayList<String>();
+			List<String> choosenWords = new ArrayList<String>();
+			
+			for (String word : _levelMap.keySet()) {
+				int entryCount = GetStatCount(word, false, 5) + 1;
+				
+				for (int i = entryCount; i > 0; i--) {
+					pickList.add(word);
+				}
+			}
+			
+			Collections.shuffle(pickList);
+			
+			for (int i = 0; i < wordCount; i++) {
+				String word = pickList.get(0);
+				pickList.remove(word);
+				
+				choosenWords.add(word);
+			}
+			
+			return choosenWords;
 		}
 	}
-
-	/**
-	 * Removes a word from the currently mastered list
-	 * 
-	 * @param word - failed or faulted word
-	 */
-	public void removeFromMastered(String word){
-		_currentlyMasteredList.remove(word);
-	}
-
-	/**
-	 * Returns the current mastered words for this Level
-	 * 
-	 * @return
-	 */
-	public ArrayList<String> getMasteredWords() {
-		return _currentlyMasteredList;
-	}
-
+	
 	/**
 	 * Clears the stats for this Level
 	 */
 	public void ClearStats() {
-		for (int[] stats : _levelMap.values()) {
-			for (int i = 0; i < stats.length; i++) {
-				stats[i] = 0;
-			}
+		for (List<Character> stats : _levelMap.values()) {
+			stats.clear();
 		}
 	}
 }
