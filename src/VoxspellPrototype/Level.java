@@ -151,7 +151,7 @@ public class Level {
 			
 			for (int i = 0; i < wordCount; i++) {
 				String word = pickList.get(0);
-				pickList.remove(word);
+				pickList.removeAll(Collections.singleton(word));
 				
 				choosenWords.add(word);
 			}

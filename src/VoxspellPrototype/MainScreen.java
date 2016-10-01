@@ -167,13 +167,12 @@ public class MainScreen extends Parent {
 				//WordList.GetWordList().ClearStats();
 				FileChooser chooser = new FileChooser();
 				chooser.setTitle("Select a new list to add");
-				
+				chooser.getExtensionFilters().addAll(
+						new FileChooser.ExtensionFilter(".txt", "*.txt"),
+						new FileChooser.ExtensionFilter("All", "*.*"));
 				File file = chooser.showOpenDialog(_window.GetWindowStage());
 				WordList.GetWordList().SetWordFile(file.getPath());
 				WordList.GetWordList().ReloadWordList();
-//				System.out.println(file.getPath());
-//				System.out.println(file.getName());
-//				System.out.println(file.getAbsolutePath());
 			}	
 		});
 		

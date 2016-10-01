@@ -226,7 +226,7 @@ public class WordList extends ArrayList<Level> {
 							}
 							
 							l.getMap().put(word, statList);
-						} else {
+						} else if (line.split("#").length > 1) {
 							l.getMap().put(word, new ArrayList<Character>());
 						}					
 					}

@@ -32,6 +32,15 @@ public class TestedWordsScreen extends Parent {
 
 	public TestedWordsScreen(Window window, HashMap<String, String> attempts, int correctWords, int wordListLength, String listName) {
 		this._window = window;
+		
+		for (int i = 0; i < attempts.keySet().size(); i++) {
+			String key = attempts.keySet().toArray()[i].toString();
+			
+			if (key == attempts.get(key)) {
+				attempts.remove(key);
+			}
+		}
+		
 		this.userAttempts = attempts;
 		
 		VBox root = new VBox();
