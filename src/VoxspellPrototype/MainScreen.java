@@ -1,5 +1,7 @@
 package VoxspellPrototype;
 
+import java.io.File;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +16,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 
 public class MainScreen extends Parent {
 
@@ -160,8 +163,17 @@ public class MainScreen extends Parent {
 		btnAddList.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				PopupWindow.DeployPopupWindow("Cleared Statistics");
-				WordList.GetWordList().ClearStats();
+				//PopupWindow.DeployPopupWindow("Cleared Statistics");
+				//WordList.GetWordList().ClearStats();
+				FileChooser chooser = new FileChooser();
+				chooser.setTitle("Select a new list to add");
+				
+				File file = chooser.showOpenDialog(_window.GetWindowStage());
+				WordList.GetWordList().SetWordFile(file.getPath());
+				WordList.GetWordList().ReloadWordList();
+//				System.out.println(file.getPath());
+//				System.out.println(file.getName());
+//				System.out.println(file.getAbsolutePath());
 			}	
 		});
 		

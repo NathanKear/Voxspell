@@ -17,9 +17,14 @@ import java.util.Map;
 public class WordList extends ArrayList<Level> {
 
 	private static WordList _instance = null;
+	private static String _listFileName = VoxspellPrototype.TXT_FILE;
 
 	private WordList() {
 		super();
+	}
+	
+	public static void SetWordFile(String filename) {
+		_listFileName = filename;
 	}
 
 	/**
@@ -28,7 +33,7 @@ public class WordList extends ArrayList<Level> {
 	 */
 	public static WordList GetWordList() {
 		if (_instance == null) {
-			_instance = initialiseNathansAwesomeDataStructure(VoxspellPrototype.TXT_FILE);
+			_instance = initialiseNathansAwesomeDataStructure(_listFileName);
 			loadStatsFromFile(_instance);
 		}
 
@@ -42,7 +47,7 @@ public class WordList extends ArrayList<Level> {
 	 */
 	public WordList ReloadWordList() {
 		//Reload the WordList by loading stats from file again
-		_instance = initialiseNathansAwesomeDataStructure(VoxspellPrototype.TXT_FILE);
+		_instance = initialiseNathansAwesomeDataStructure(_listFileName);
 
 		return _instance;
 	}
@@ -53,7 +58,7 @@ public class WordList extends ArrayList<Level> {
 	public void clearWordList() {
 		this.clear();
 
-		_instance = initialiseNathansAwesomeDataStructure(VoxspellPrototype.TXT_FILE);
+		_instance = initialiseNathansAwesomeDataStructure(_listFileName);
 	}
 
 	/**
@@ -259,7 +264,7 @@ public class WordList extends ArrayList<Level> {
 			while((line = textFileReader.readLine()) != null) {
 
 				//If the first char is % then its the name of the level
-				if(line.charAt(0) == '%') {
+				if(line.length() > 0 && line.charAt(0) == '%') {
 
 					if(lastLineWasWord) {
 						Level level = new Level(levelName, levelHashMap);
@@ -287,7 +292,12 @@ public class WordList extends ArrayList<Level> {
 			Level level = new Level(levelName, levelHashMap);
 			level.unlockLevel();
 			nathansAwesomeDataStructure.add(level);
+			
 			textFileReader.close();
+			
+			if (nathansAwesomeDataStructure.size() == 0) {
+				PopupWindow.DeployPopupWindow("No levels found within the text file. Are you sure a line begins with '%' to indicate a level.");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

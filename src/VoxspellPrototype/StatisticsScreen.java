@@ -37,7 +37,6 @@ public class StatisticsScreen extends Parent {
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
-	private final double BTNWIDTH_SCREENWIDTH_RATIO = 1.00;
 	private final int BTN_HEIGHT = 70;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	
@@ -124,7 +123,7 @@ public class StatisticsScreen extends Parent {
 		this.getChildren().add(root);
 		
 		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
-
+		this.setStyle("-fx-background-color: " + BACK_COLOR + ";");
 		return;
 	}
 
