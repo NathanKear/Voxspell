@@ -14,8 +14,8 @@ import javafx.stage.Stage;
  */
 public class PopupWindow {
 	private final static int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE_FINE;
-	private final static String TXT_FONT_COLOR = VoxspellPrototype.WHITE;
-	private final static String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
+	private final static String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
+	private final static String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final static int POPWINDOW_WIDTH = 400;
 	private final static int POPWINDOW_HEIGHT = 100;
 	

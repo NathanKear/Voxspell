@@ -34,12 +34,12 @@ public class StatisticsScreen extends Parent {
 	
 	private final String BTN_RETURN_TEXT = "Return";
 	private final String BTN_CLEAR_TEXT = "Clear";
-	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
-	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
+	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final double BTNWIDTH_SCREENWIDTH_RATIO = 1.00;
 	private final int BTN_HEIGHT = 70;
-	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
+	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	
 	public StatisticsScreen(Window window) {
 		
@@ -66,7 +66,7 @@ public class StatisticsScreen extends Parent {
 		int tabWidth = _window.GetWidth()/(numOfTabs + 3);
 		statsTabPane.setTabMinWidth(tabWidth);
 		
-		statsTabPane.setStyle("-fx-base: #89bdd3");
+		statsTabPane.setStyle("-fx-base: " + BACK_COLOR);
 		
 		//Looping through the number of levels and creating a tab for each one
 		for(int i = 0; i < numOfTabs; i++) {

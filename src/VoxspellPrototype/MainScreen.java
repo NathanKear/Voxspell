@@ -1,7 +1,5 @@
 package VoxspellPrototype;
 
-import java.io.InputStream;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,10 +27,10 @@ public class MainScreen extends Parent {
 	private final String BTN_TRIAL_TEXT = "Time-\nTrial";
 	private final String BTN_STATS_TEXT = "Stats";
 	private final String BTN_ADDLIST_TEXT = "Add\nList";
-	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
-	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
-	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
+	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
+	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
+	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_LRG_WIDTH = 250;
 	private final int BTN_LRG_HEIGHT = 250;
 	private final int BTN_SML_WIDTH = 75;

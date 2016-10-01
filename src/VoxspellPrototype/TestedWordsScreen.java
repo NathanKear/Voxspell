@@ -22,11 +22,11 @@ public class TestedWordsScreen extends Parent {
 
 	private Window _window;
 	
-	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
-	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
+	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final int BTN_HEIGHT = 70;
-	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
+	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 
 	private final HashMap<String, String> userAttempts;
 

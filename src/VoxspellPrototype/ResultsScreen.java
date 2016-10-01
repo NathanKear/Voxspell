@@ -27,10 +27,10 @@ public class ResultsScreen extends Parent {
 	private final String BTN_TESTED_WORDS_TEXT = "Tested Words";
 	private final String BTN_REWARD_TEXT = "Reward";
 	private final int VBX_SPACING = 50;
-	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
-	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
-	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
+	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
+	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
+	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final int SIDE_PADDING = 10;

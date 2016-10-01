@@ -83,20 +83,20 @@ public class MediaScreen extends Parent {
     	btnSpookify.setPreferredSize(new Dimension(_window.GetWidth() / 3, BTN_HEIGHT));
     	
     	// Set button color
-    	btnPause.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
-    	btnLeave.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
-    	btnMute.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
-    	btnForward.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
-    	btnBack.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
-    	btnSpookify.setBackground(Color.decode(VoxspellPrototype.LIGHT_BLUE));
+    	btnPause.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnLeave.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnMute.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnForward.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnBack.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnSpookify.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
     	
     	// Set button text color
-    	btnPause.setForeground(Color.decode(VoxspellPrototype.WHITE));
-    	btnLeave.setForeground(Color.decode(VoxspellPrototype.WHITE));
-    	btnMute.setForeground(Color.decode(VoxspellPrototype.WHITE));
-    	btnForward.setForeground(Color.decode(VoxspellPrototype.WHITE));
-    	btnBack.setForeground(Color.decode(VoxspellPrototype.WHITE));
-    	btnSpookify.setForeground(Color.decode(VoxspellPrototype.WHITE));
+    	btnPause.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
+    	btnLeave.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
+    	btnMute.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
+    	btnForward.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
+    	btnBack.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
+    	btnSpookify.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));
     	
     	// Set font and font size
     	btnPause.setFont(new Font("Arial", Font.PLAIN, VoxspellPrototype.BTN_FONT_SIZE));

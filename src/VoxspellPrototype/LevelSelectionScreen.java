@@ -46,11 +46,11 @@ public class LevelSelectionScreen extends Parent {
 	private final double SCROLL_SENSITIVITY = 400;
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
-	private final String BTN_COLOR = VoxspellPrototype.DARK_BLUE;
-	private final String BTN_LOCKED_COLOR = VoxspellPrototype.DARK;
-	private final String BACK_COLOR = VoxspellPrototype.LIGHT_BLUE;
-	private final String BTN_FONT_COLOR = VoxspellPrototype.WHITE;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.WHITE;
+	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
+	private final String BTN_LOCKED_COLOR = VoxspellPrototype.DARK_COLOR;
+	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
+	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
+	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final double TMR_TICK_RATE = 60.0;
 
 	private VBox _levelButtons;

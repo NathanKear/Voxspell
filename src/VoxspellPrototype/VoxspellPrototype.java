@@ -10,15 +10,16 @@ import javafx.stage.WindowEvent;
 public class VoxspellPrototype extends Application {
 
 	// Global constants (naughty public static!!)
-	public static final String LIGHT_BLUE = "#9ad3de";
-	public static final String DARK_BLUE = "#89bdd3";
-	public static final String WHITE = "#e3e3e3";
-	public static final String DARK = "#c9c9c9";
+	public static final String BACK_COLOR = "#96ceb4";//"#9ad3de";
+	public static final String BUTTON_COLOR = "#ff6f69";//"#89bdd3";
+	public static final String LIGHT_COLOR = "#e3e3e3";
+	public static final String DARK_COLOR = "#c9c9c9";
 	public static final String MEDIA_SOURCE = "/home/nathan/workspace/ccar-nkea_se206-a03/media/bunny.mp4";
 	public static final int BTN_FONT_SIZE = 22;
 	public static final int TXT_FONT_SIZE = 46;
 	public static final int TXT_FONT_SIZE_FINE = 18;
 	public static final int QUIZ_LENGTH = 10;
+	public static final String TXT_FILE = ".spellinglist.txt";
 	
 	private Window _window;
 	
