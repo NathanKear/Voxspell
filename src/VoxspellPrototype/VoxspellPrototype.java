@@ -10,8 +10,8 @@ import javafx.stage.WindowEvent;
 public class VoxspellPrototype extends Application {
 
 	// Global constants (naughty public static!!)
-	public static final String BACK_COLOR = "#96ceb4";//"#9ad3de";
-	public static final String BUTTON_COLOR = "#ff6f69";//"#89bdd3";
+	public static final String BACK_COLOR = "#9ad3de";//"#96ceb4";
+	public static final String BUTTON_COLOR = "#89bdd3";//"#ff6f69";
 	public static final String LIGHT_COLOR = "#e3e3e3";
 	public static final String DARK_COLOR = "#c9c9c9";
 	public static final String MEDIA_SOURCE = "/home/nathan/workspace/ccar-nkea_se206-a03/media/bunny.mp4";

@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -27,7 +29,7 @@ public class QuizScreen extends Parent {
 	private final String BTN_SPEAK_TEXT = "Speak";
 	private final String BTN_ENTER_TEXT = "Enter";
 	private final int HBX_SPACING = 10;
-	private final int VBX_SPACING = 50;
+	private final int VBX_SPACING = 80;
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
@@ -41,15 +43,21 @@ public class QuizScreen extends Parent {
 	private final int BTN_WIDTH = 200;
 	private final int BTN_HEIGHT = 70;
 	private final int TFD_WIDTH = 300;
+	private final int PROGBAR_HEIGHT = 20;
+	private final int PROGBAR_GAP = 5;
+	
+	private final Image GREY_BLOCK = new Image(getClass().getResourceAsStream("/media/images/grey.png"));
+	private final Image RED_BLOCK = new Image(getClass().getResourceAsStream("/media/images/red.png"));
+	private final Image GREEN_BLOCK = new Image(getClass().getResourceAsStream("/media/images/green.png"));
 
 	private final Text _txtQuiz;
-	private final Text _txtProgress;
 	private TextField _tfdAttempt;
 	private String _level;
+	private HBox _progressBar;
+	private ImageView[] _progressBarBlocks;
 
 	private List<String> _words;
 	private int _wordIndex = 0;
-	private boolean _firstGuess = true;
 	private int _masteredWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 	
@@ -69,23 +77,28 @@ public class QuizScreen extends Parent {
 
 
 		// Create quiz title text
-		_txtQuiz = new Text("Quiz\n\n");
+		_txtQuiz = new Text("Quiz\n");
 		_txtQuiz.prefWidth(_window.GetWidth());
 		_txtQuiz.setTextAlignment(TextAlignment.CENTER);
 		_txtQuiz.setWrappingWidth(_window.GetWidth());
 		_txtQuiz.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
 				" -fx-fill: " + TXT_FONT_COLOR + ";");
-
-		// Create score progress counter text
-		_txtProgress = new Text("\nCorrect: 0/" + _words.size());
-		_txtProgress.prefWidth(_window.GetWidth());
-		_txtProgress.setTextAlignment(TextAlignment.CENTER);
-		_txtProgress.setWrappingWidth(_window.GetWidth() - (SIDE_PADDING * 2));
-		_txtProgress.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+		
+		_progressBar = new HBox(PROGBAR_GAP);
+		_progressBar.setPrefWidth(_window.GetWidth() - (2 * PROGBAR_GAP));
+		_progressBar.setPrefHeight(PROGBAR_HEIGHT);
+		
+		_progressBarBlocks = new ImageView[_words.size()];
+		
+		for (int i = 0; i < _progressBarBlocks.length; i++) {
+			_progressBarBlocks[i] = new ImageView(GREY_BLOCK);
+			_progressBarBlocks[i].setFitHeight(PROGBAR_HEIGHT);
+			_progressBarBlocks[i].setFitWidth((_window.GetWidth() - (_words.size() + 1) * PROGBAR_GAP) / _words.size());
+			_progressBar.getChildren().add(_progressBarBlocks[i]);
+		}
 
 		// Add all nodes to root pane
-		root.getChildren().addAll(_txtQuiz, buildCenterPane(BTN_HEIGHT), _txtProgress);
+		root.getChildren().addAll(_txtQuiz, buildCenterPane(BTN_HEIGHT), _progressBar);
 
 		// Add root pane to parent
 		this.getChildren().addAll(root);
@@ -165,20 +178,20 @@ public class QuizScreen extends Parent {
 	 */
 	private boolean attemptWord(String word) {
 
-		_txtQuiz.setText("Quiz\n\n");
+		_txtQuiz.setText("Quiz\n");
 
 		word = word.trim();
 
 		if (word.equals("")) {
 			// Word attempt must contain some characters		
-			_txtQuiz.setText("Quiz\n\nEnter a word"); 
+			_txtQuiz.setText("Quiz\nEnter a word"); 
 
 			return false;
 		}
 
 		if (word.contains(" ")) {
 			// Word attempt may not contain white space
-			_txtQuiz.setText("Quiz\n\nMay not contain spaces"); 
+			_txtQuiz.setText("Quiz\nMay not contain spaces"); 
 
 			return false;
 		}
@@ -186,7 +199,7 @@ public class QuizScreen extends Parent {
 		if (!word.matches("[a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText("Quiz\n\nMay only contain letters"); 
+			_txtQuiz.setText("Quiz\nMay only contain letters"); 
 
 			return false;
 		}
@@ -197,11 +210,13 @@ public class QuizScreen extends Parent {
 		
 		WordList.GetWordList().AddWordStat(currentWord(), _level, correct);
 		_userAttempts.put(currentWord(), word);
-		
+
 		if (correct) {
-			speechOutput = speechOutput + "Correct..";	
+			speechOutput = speechOutput + "Correct..";
+			_progressBarBlocks[_wordIndex].setImage(GREEN_BLOCK);
 		} else {
 			speechOutput = speechOutput + "Incorrect..";
+			_progressBarBlocks[_wordIndex].setImage(RED_BLOCK);
 		}
 
 		if (nextWord()) {
@@ -222,8 +237,6 @@ public class QuizScreen extends Parent {
 		if (_wordIndex + 1 < _words.size()) {
 			// There are words left to spell
 			_wordIndex++;
-			_firstGuess = true;
-			_txtProgress.setText("\nCorrect: " + _masteredWords + "/" + _words.size());
 			
 			return true;
 		} else {
