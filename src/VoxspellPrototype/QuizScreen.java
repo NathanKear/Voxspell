@@ -77,7 +77,7 @@ public class QuizScreen extends Parent {
 
 
 		// Create quiz title text
-		_txtQuiz = new Text("Quiz\n");
+		_txtQuiz = new Text(_level + "\n");
 		_txtQuiz.prefWidth(_window.GetWidth());
 		_txtQuiz.setTextAlignment(TextAlignment.CENTER);
 		_txtQuiz.setWrappingWidth(_window.GetWidth());
@@ -178,20 +178,20 @@ public class QuizScreen extends Parent {
 	 */
 	private boolean attemptWord(String word) {
 
-		_txtQuiz.setText("Quiz\n");
+		_txtQuiz.setText(_level + "\n");
 
 		word = word.trim();
 
 		if (word.equals("")) {
 			// Word attempt must contain some characters		
-			_txtQuiz.setText("Quiz\nEnter a word"); 
+			_txtQuiz.setText(_level + "\nEnter a word"); 
 
 			return false;
 		}
 
 		if (word.contains(" ")) {
 			// Word attempt may not contain white space
-			_txtQuiz.setText("Quiz\nMay not contain spaces"); 
+			_txtQuiz.setText(_level + "\nMay not contain spaces"); 
 
 			return false;
 		}
@@ -199,7 +199,7 @@ public class QuizScreen extends Parent {
 		if (!word.matches("[a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText("Quiz\nMay only contain letters"); 
+			_txtQuiz.setText(_level + "\nMay only contain letters"); 
 
 			return false;
 		}

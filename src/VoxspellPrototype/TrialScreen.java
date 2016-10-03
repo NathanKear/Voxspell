@@ -242,7 +242,7 @@ public class TrialScreen extends Parent {
 			return true;
 		} else {
 			// No words left to spell
-			_window.SetWindowScene(new Scene(new ResultsScreen(_window, _masteredWords, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
+			_window.SetWindowScene(new Scene(new ResultsScreen(_window, 0, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
 
 			return false;
 		}
