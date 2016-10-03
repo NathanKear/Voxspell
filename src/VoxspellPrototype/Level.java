@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Level {
 	
-	private final int _goldThreshold = 20;
-	private final int _silverThreshold = 16;
-	private final int _bronzeThreshold = 12;
+	private final int _goldThreshold = 18;
+	private final int _silverThreshold = 14;
+	private final int _bronzeThreshold = 10;
 	
 	enum Medal {
 		None,

@@ -51,13 +51,16 @@ public class TrialScreen extends Parent {
 	private final int PROGBAR_GAP = 5;
 	
 	private final Image GREY_BLOCK = new Image(getClass().getResourceAsStream("/media/images/grey.png"));
-	private final Image RED_BLOCK = new Image(getClass().getResourceAsStream("/media/images/red.png"));
 	private final Image GREEN_BLOCK = new Image(getClass().getResourceAsStream("/media/images/green.png"));
+	private final Image BRONZE_BLOCK = new Image(getClass().getResourceAsStream("/media/images/bronze.png"));
+	private final Image SILVER_BLOCK = new Image(getClass().getResourceAsStream("/media/images/silver.png"));
+	private final Image GOLD_BLOCK = new Image(getClass().getResourceAsStream("/media/images/gold.png"));
 
 	private final int QUIZ_LENGTH = 60 * 1000;
 	private final Text _txtQuiz;
 	private TextField _tfdAttempt;
-	private String _level;
+	private String _levelName;
+	private Level _level;
 	private HBox _progressBar;
 	private ImageView[] _progressBarBlocks;
 
@@ -67,12 +70,13 @@ public class TrialScreen extends Parent {
 	private int _wordIndex = 0;
 	private int _correctWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
-	
+	private boolean _firstTick = true;
 
 	public TrialScreen(Window window, String wordlistName) {
 		this._window = window;
 		
-		_level = wordlistName;
+		_levelName = wordlistName;
+		_level = WordList.GetWordList().getLevelFromName(_levelName);
 		_quizStart = Instant.now();
 		
 		Level currentLevel =  WordList.GetWordList().getLevelFromName(wordlistName);
@@ -86,8 +90,9 @@ public class TrialScreen extends Parent {
 
 
 		// Create quiz title text
-		_txtQuiz = new Text(_level + "\n");
-		_txtQuiz.prefWidth(_window.GetWidth());
+		_txtQuiz = new Text();
+		this.SetTimeText(QUIZ_LENGTH);
+		//_txtQuiz.prefWidth(_window.GetWidth());
 		_txtQuiz.setTextAlignment(TextAlignment.CENTER);
 		_txtQuiz.setWrappingWidth(_window.GetWidth());
 		_txtQuiz.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
@@ -102,7 +107,7 @@ public class TrialScreen extends Parent {
 		for (int i = 0; i < _progressBarBlocks.length; i++) {
 			_progressBarBlocks[i] = new ImageView(GREY_BLOCK);
 			_progressBarBlocks[i].setFitHeight(PROGBAR_HEIGHT);
-			_progressBarBlocks[i].setFitWidth((_window.GetWidth() - (_words.size() + 1) * PROGBAR_GAP) / _words.size());
+			_progressBarBlocks[i].setFitWidth((_window.GetWidth() - (currentLevel.GetGoldThreshold() + 1) * PROGBAR_GAP) / currentLevel.GetGoldThreshold());
 			_progressBar.getChildren().add(_progressBarBlocks[i]);
 		}
 
@@ -192,20 +197,20 @@ public class TrialScreen extends Parent {
 	 */
 	private boolean attemptWord(String word) {
 
-		_txtQuiz.setText(_level + "\n");
+		_txtQuiz.setText(_levelName + "\n");
 
 		word = word.trim();
 
 		if (word.equals("")) {
 			// Word attempt must contain some characters		
-			_txtQuiz.setText(_level + "\nEnter a word"); 
+			_txtQuiz.setText(_levelName + "\nEnter a word"); 
 
 			return false;
 		}
 
 		if (word.contains(" ")) {
 			// Word attempt may not contain white space
-			_txtQuiz.setText(_level + "\nMay not contain spaces"); 
+			_txtQuiz.setText(_levelName + "\nMay not contain spaces"); 
 
 			return false;
 		}
@@ -213,7 +218,7 @@ public class TrialScreen extends Parent {
 		if (!word.matches("[a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText(_level + "\nMay only contain letters"); 
+			_txtQuiz.setText(_levelName + "\nMay only contain letters"); 
 
 			return false;
 		}
@@ -222,20 +227,30 @@ public class TrialScreen extends Parent {
 		boolean correct = (word.toLowerCase().equals(currentWord().toLowerCase()));
 		String speechOutput = "";
 		
-		WordList.GetWordList().AddWordStat(currentWord(), _level, correct);
+		WordList.GetWordList().AddWordStat(currentWord(), _levelName, correct);
 		_userAttempts.put(currentWord(), word);
 
 		if (correct) {
 			speechOutput = speechOutput + "Correct..";
-			_progressBarBlocks[_wordIndex].setImage(GREEN_BLOCK);
+			if (_correctWords < _progressBarBlocks.length) {
+				if (_correctWords >= _level.GetGoldThreshold() - 1) {
+					_progressBarBlocks[_correctWords].setImage(GOLD_BLOCK);
+				} else if (_correctWords >= _level.GetSilverThreshold() - 1) {
+					_progressBarBlocks[_correctWords].setImage(SILVER_BLOCK);
+				} else if (_correctWords >= _level.GetBronzeThreshold() - 1) {
+					_progressBarBlocks[_correctWords].setImage(BRONZE_BLOCK);
+				} else {
+					_progressBarBlocks[_correctWords].setImage(GREEN_BLOCK);
+				}
+			}
+			_correctWords++;
 		} else {
 			speechOutput = speechOutput + "Incorrect..";
-			_progressBarBlocks[_wordIndex].setImage(RED_BLOCK);
 		}
-
-		if (nextWord()) {
-			speechOutput = speechOutput + " Spell " + currentWord();
-		}
+		
+		nextWord();
+		
+		speechOutput = speechOutput + " Spell " + currentWord();
 
 		new FestivalSpeakTask(speechOutput).run();
 		_tfdAttempt.clear();
@@ -254,9 +269,10 @@ public class TrialScreen extends Parent {
 			
 			return true;
 		} else {
-			// No words left to spell
-			_window.SetWindowScene(new Scene(new ResultsScreen(_window, 0, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
-
+			_wordIndex = 0;
+			
+			_words = _level.GetWordsNonBias(_level.Size());
+			
 			return false;
 		}
 	}
@@ -265,16 +281,35 @@ public class TrialScreen extends Parent {
 		return _words.get(_wordIndex);
 	}
 	
+	private void SetTimeText(long milliseconds) {
+		
+		long seconds = milliseconds / 1000;
+		long millis = (milliseconds % 1000) / 10;
+		
+		_txtQuiz.setText(_levelName + "\n" + String.format("%02d", seconds) + ":" + String.format("%02d", millis));
+	}
+	
 	private EventHandler<ActionEvent> _tick = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
+			
+			if (_firstTick) {
+				_tfdAttempt.requestFocus();
+				_firstTick = !_firstTick;
+			}
+			
 			Instant now = Instant.now();
 			long diff = now.toEpochMilli() - _quizStart.toEpochMilli();
 			long timeLeft = QUIZ_LENGTH - diff;
-			long seconds = timeLeft / 1000;
-			long millis = (timeLeft % 1000) / 10;
+			SetTimeText(timeLeft);
 			
-			_txtQuiz.setText(_level + "\n" + String.format("%02d", seconds) + ":" + String.format("%02d", millis));
+			if (timeLeft <= 0) {
+				_timeline.stop();
+				
+				_level.SubmitCorrectResponses(_correctWords);
+				
+				_window.SetWindowScene(new Scene(new ResultsScreen(_window, 0, _words.size(), _levelName, _userAttempts), _window.GetWidth(), _window.GetHeight()));
+			}
 		}	
 	};
 }
