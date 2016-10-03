@@ -194,8 +194,13 @@ public class Level {
 		}
 	}
 	
-	public void SubmitCorrectResponses(int correct) {
-		this._record = Math.max(correct, this._record);		
+	public boolean SubmitCorrectResponses(int correct) {
+		if (correct > this._record) {
+			this._record = correct;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public Medal GetMedal() {

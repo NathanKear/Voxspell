@@ -36,7 +36,8 @@ public class TestedWordsScreen extends Parent {
 		for (int i = 0; i < attempts.keySet().size(); i++) {
 			String key = attempts.keySet().toArray()[i].toString();
 			
-			if (key == attempts.get(key)) {
+			// Remove any correct word spellings, we only need to show incorrect spellings
+			if (key.toLowerCase().equals(attempts.get(key).toLowerCase())) {
 				attempts.remove(key);
 			}
 		}

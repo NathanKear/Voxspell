@@ -248,7 +248,7 @@ public class LevelSelectionScreen extends Parent {
 				break;
 			
 			}
-			
+
 			//img.setTranslateX(100);
 			final Button btn = new Button("   " + listName, img);
 			btn.setAlignment(Pos.BASELINE_LEFT);

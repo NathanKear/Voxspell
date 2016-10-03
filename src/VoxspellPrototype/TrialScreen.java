@@ -306,9 +306,9 @@ public class TrialScreen extends Parent {
 			if (timeLeft <= 0) {
 				_timeline.stop();
 				
-				_level.SubmitCorrectResponses(_correctWords);
+				boolean isRecord = _level.SubmitCorrectResponses(_correctWords);
 				
-				_window.SetWindowScene(new Scene(new ResultsScreen(_window, 0, _words.size(), _levelName, _userAttempts), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new ResultsScreenTrial(_window, _correctWords, isRecord, _level), _window.GetWidth(), _window.GetHeight()));
 			}
 		}	
 	};
