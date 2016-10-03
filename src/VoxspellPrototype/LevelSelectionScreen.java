@@ -24,9 +24,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
 
@@ -52,16 +56,23 @@ public class LevelSelectionScreen extends Parent {
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final double TMR_TICK_RATE = 60.0;
+	private final QuizType _quizType;
+	
+	private final Image MEDAL_NONE = new Image(getClass().getResourceAsStream("/media/images/noMedalIcon.png"));
+	private final Image MEDAL_GOLD = new Image(getClass().getResourceAsStream("/media/images/goldIcon.png"));
+	private final Image MEDAL_SILVER = new Image(getClass().getResourceAsStream("/media/images/silverIcon.png"));
+	private final Image MEDAL_BRONZE = new Image(getClass().getResourceAsStream("/media/images/bronzeIcon.png"));
 
 	private VBox _levelButtons;
 	private double _scrollPosition = 0;
 	private Timeline _timeline;
 
-	public LevelSelectionScreen(Window window) {
+	public LevelSelectionScreen(Window window, QuizType quizType) {
 		super();
 
 		this._window = window;
-
+		this._quizType = quizType;
+		
 		BTN_HEIGHT = _window.GetHeight() / BUTTONS_PER_SCREEN;
 		BTN_WIDTH = _window.GetWidth() * SELECTIONBAR_SCREENWIDTH_RATIO;
 
@@ -91,8 +102,6 @@ public class LevelSelectionScreen extends Parent {
 		} catch (IOException e) {
 
 		}
-
-
 	}
 
 	/**
@@ -219,10 +228,30 @@ public class LevelSelectionScreen extends Parent {
 			Level level = wordlist.get(i);
 			final String listName = level.levelName();
 
-			final Button btn = new Button();
+			ImageView img = new ImageView();
 			
+			switch(level.GetMedal()) {
+			case Bronze:
+				img.setImage(MEDAL_BRONZE);
+				break;
+			case Gold:
+				img.setImage(MEDAL_GOLD);
+				break;
+			case None:
+				img.setImage(MEDAL_NONE);
+				break;
+			case Silver:
+				img.setImage(MEDAL_SILVER);
+				break;
+			default:
+				img.setImage(MEDAL_NONE);
+				break;
 			
-			btn.setText(listName);	
+			}
+			
+			//img.setTranslateX(100);
+			final Button btn = new Button("   " + listName, img);
+			btn.setAlignment(Pos.BASELINE_LEFT);
 			btn.setPrefWidth(BTN_WIDTH);
 			btn.setPrefHeight(BTN_HEIGHT);
 
@@ -235,7 +264,18 @@ public class LevelSelectionScreen extends Parent {
 				btn.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						_window.SetWindowScene(new Scene(new QuizScreen(_window, listName), _window.GetWidth(), _window.GetHeight()));
+						switch (_quizType) {
+						case Normal:
+							_window.SetWindowScene(new Scene(new QuizScreen(_window, listName), _window.GetWidth(), _window.GetHeight()));
+							break;
+						case Trial:
+							_window.SetWindowScene(new Scene(new CountdownScreen(_window, listName), _window.GetWidth(), _window.GetHeight()));
+							break;
+						default:
+							break;
+						
+						}
+						
 					}
 				});
 				

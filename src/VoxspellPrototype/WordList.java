@@ -149,31 +149,12 @@ public class WordList extends ArrayList<Level> {
 				//Getting a level from the hash map
 				Level level = this.get(i);
 				if(level.isUnlocked()) {
-					textFileWriter.append("!unlock " + level.levelName() + "\n");
+					textFileWriter.append("!#" + level.levelName() + "#unlocked#" + level.GetCurrentRecord() + "\n");
+				} else {
+					textFileWriter.append("!#" + level.levelName() + "#locked#" + level.GetCurrentRecord() + "\n");
 				}
 			}
-
-//			//Saving which words are currently failed
-//			for(int i = 0; i < this.size(); i++) {
-//				//Getting a level from the hash map
-//				Level level = this.get(i);
-//				List<String> failedWords = level.getFailedWords();
-//				for(int j = 0; j < failedWords.size(); j++) {
-//					textFileWriter.append("failed " + level.levelName() + " " + failedWords.get(j) + "\n");
-//				}
-//			}
-
-//			//Saving which words are currently mastered
-//			for(int i = 0; i < this.size(); i++) {
-//				//Getting a level from the hash map
-//				Level level = this.get(i);
-//				List<String> masteredWords = level.getMasteredWords();
-//				for(int j = 0; j < masteredWords.size(); j++) {
-//					textFileWriter.append("mastered " + level.levelName() + " " + masteredWords.get(j) + "\n");
-//				}
-//			}
-
-
+			
 			textFileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -197,17 +178,25 @@ public class WordList extends ArrayList<Level> {
 				
 				String line = "";
 				while ((line = statsReader.readLine()) != null) {
-					// Line contains level to unlock
-					if (line.contains("!unlock")) {
+					// Line contains level metadata
+					if (line.contains("!")) {
 						
 						// Trim line down to just the level to replace
-						line = line.replaceAll("!unlock", "");
+						// line = line.replaceAll("!unlock", "");
+						
+						String levelName = line.split("#")[1];
+						boolean  unlock = line.split("#")[2] == "unlocked";
+						int levelRecord = Integer.parseInt(line.split("#")[3]);
 						
 						// Check all levels if they need to be unlocked
 						for (Level level : wordlist) {
-							if (level.levelName().equals(line)) {
+							if (level.levelName().equals(levelName)) {
 								// Unlock the level
-								level.unlockLevel();
+								if (unlock) {
+									level.unlockLevel();
+								}
+								
+								level.SubmitCorrectResponses(levelRecord);
 							}
 						}
 						

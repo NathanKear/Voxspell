@@ -6,7 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Level {
+	
+	private final int _goldThreshold = 20;
+	private final int _silverThreshold = 16;
+	private final int _bronzeThreshold = 12;
+	
+	enum Medal {
+		None,
+		Bronze,
+		Silver,
+		Gold
+	}
 
+	private int _record;
+	private Medal _medal;
 	private boolean _isUnlocked = false;
 	private HashMap<String, List<Character>> _levelMap;
 	private String _levelName;
@@ -20,6 +33,7 @@ public class Level {
 	public Level(String levelName, HashMap<String, List<Character>> levelMap) {
 		_levelName = levelName;
 		_levelMap = levelMap;
+		_medal = Medal.None;
 	}
 
 	/**
@@ -160,6 +174,17 @@ public class Level {
 		}
 	}
 	
+	public List<String> GetWordsNonBias(int wordCount) {
+		List<String> list  = new ArrayList<String>(_levelMap.keySet());
+		Collections.shuffle(list);
+		
+		if (_levelMap.size() <= wordCount) { // Have to return whole list
+			return list;
+		} else { // Return part of list
+			return list.subList(0, wordCount);
+		}
+	}
+	
 	/**
 	 * Clears the stats for this Level
 	 */
@@ -167,5 +192,37 @@ public class Level {
 		for (List<Character> stats : _levelMap.values()) {
 			stats.clear();
 		}
+	}
+	
+	public void SubmitCorrectResponses(int correct) {
+		this._record = Math.max(correct, this._record);		
+	}
+	
+	public Medal GetMedal() {
+		if (this._record >= _goldThreshold) {
+			return Medal.Gold;
+		} else if (this._record >= _silverThreshold) {
+			return Medal.Silver;
+		} else if (this._record >= _bronzeThreshold) {
+			return Medal.Bronze;
+		}
+		
+		return Medal.None;
+	}
+	
+	public int GetCurrentRecord() {
+		return this._record;
+	}
+	
+	public int GetGoldThreshold() {
+		return this._goldThreshold;
+	}
+	
+	public int GetSilverThreshold() {
+		return this._silverThreshold;
+	}
+	
+	public int GetBronzeThreshold() {
+		return this._bronzeThreshold;
 	}
 }

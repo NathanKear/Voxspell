@@ -1,20 +1,20 @@
-Fruit & Vegetables#Apple#pppppppp
-Fruit & Vegetables#Carrot#ppppffpff
-Fruit & Vegetables#Eggplant#ppppp
-Fruit & Vegetables#Watermelon#ppff
-Fruit & Vegetables#Grape#ppppp
-Fruit & Vegetables#Peach#fffpfffpppfpp
-Fruit & Vegetables#Mango#ppppppp
-Fruit & Vegetables#Kiwifruit#pppppp
-Fruit & Vegetables#Pineapple#ppppppppp
-Fruit & Vegetables#Orange#pppppppp
-Fruit & Vegetables#Banana#ppppppffffp
-Instruments#Guitar#p
-Instruments#Xylophone#p
-Instruments#Piano#p
+Fruit & Vegetables#Apple#p
+Fruit & Vegetables#Carrot#p
+Fruit & Vegetables#Eggplant
+Fruit & Vegetables#Watermelon#f
+Fruit & Vegetables#Grape#p
+Fruit & Vegetables#Peach#p
+Fruit & Vegetables#Mango#p
+Fruit & Vegetables#Kiwifruit#p
+Fruit & Vegetables#Pineapple#p
+Fruit & Vegetables#Orange#p
+Fruit & Vegetables#Banana#p
+Instruments#Guitar
+Instruments#Xylophone
+Instruments#Piano
 Instruments#Keyboard
 Instruments#Violin
 Instruments#Saxophone
 Instruments#Drums
-!unlock Fruit & Vegetables
-!unlock Instruments
+!#Fruit & Vegetables#unlocked#0
+!#Instruments#unlocked#0

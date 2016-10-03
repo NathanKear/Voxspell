@@ -150,7 +150,7 @@ public class StatisticsScreen extends Parent {
 		});
 		
 		//Creating the cell value factory for the failed stats
-		TableColumn<Map.Entry<String, List<Character>>, String> totalAttempts = new TableColumn<>("Failed");
+		TableColumn<Map.Entry<String, List<Character>>, String> totalAttempts = new TableColumn<>("Correct");
 		totalAttempts.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String>, ObservableValue<String>>() {
 
 			@Override
@@ -162,7 +162,7 @@ public class StatisticsScreen extends Parent {
 		});
 
 		//Creating the cell value factory for the faulted stats
-		TableColumn<Map.Entry<String, List<Character>>, String> successRate = new TableColumn<>("Faulted");
+		TableColumn<Map.Entry<String, List<Character>>, String> successRate = new TableColumn<>("Total Attempts");
 		successRate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, List<Character>>, String>, ObservableValue<String>>() {
 
 			@Override
