@@ -49,7 +49,7 @@ public class ResultsScreen extends Parent {
 
 		// Create quiz title text
 		Text txtResults;
-		txtResults = new Text("You got " + correctWords + "/" + wordListLength + "\n\n");
+		txtResults = new Text("You got " + correctWords + "/" + wordListLength);
 		txtResults.prefWidth(_window.GetWidth());
 		txtResults.setTextAlignment(TextAlignment.CENTER);
 		txtResults.setWrappingWidth(_window.GetWidth());
