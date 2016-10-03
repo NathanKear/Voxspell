@@ -44,7 +44,7 @@ public class CountdownScreen extends Parent {
 		this.getChildren().add(root);
 		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
 		
-		// Create timer to keep track of mouse position
+		// Create timer to keep track of countdown
 		_timeline = new Timeline(new KeyFrame(Duration.millis(1000), _tick));
 		_timeline.setCycleCount(Timeline.INDEFINITE);		
 		_timeline.play();

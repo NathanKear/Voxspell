@@ -1,8 +1,11 @@
 package VoxspellPrototype;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 public class TrialScreen extends Parent {
 
@@ -50,12 +54,15 @@ public class TrialScreen extends Parent {
 	private final Image RED_BLOCK = new Image(getClass().getResourceAsStream("/media/images/red.png"));
 	private final Image GREEN_BLOCK = new Image(getClass().getResourceAsStream("/media/images/green.png"));
 
+	private final int QUIZ_LENGTH = 60 * 1000;
 	private final Text _txtQuiz;
 	private TextField _tfdAttempt;
 	private String _level;
 	private HBox _progressBar;
 	private ImageView[] _progressBarBlocks;
 
+	private final Instant _quizStart;
+	private final Timeline _timeline;
 	private List<String> _words;
 	private int _wordIndex = 0;
 	private int _correctWords = 0;
@@ -64,8 +71,9 @@ public class TrialScreen extends Parent {
 
 	public TrialScreen(Window window, String wordlistName) {
 		this._window = window;
-
+		
 		_level = wordlistName;
+		_quizStart = Instant.now();
 		
 		Level currentLevel =  WordList.GetWordList().getLevelFromName(wordlistName);
 		_words = currentLevel.GetWordsNonBias(currentLevel.Size());
@@ -78,7 +86,7 @@ public class TrialScreen extends Parent {
 
 
 		// Create quiz title text
-		_txtQuiz = new Text("Quiz\n");
+		_txtQuiz = new Text(_level + "\n");
 		_txtQuiz.prefWidth(_window.GetWidth());
 		_txtQuiz.setTextAlignment(TextAlignment.CENTER);
 		_txtQuiz.setWrappingWidth(_window.GetWidth());
@@ -106,6 +114,11 @@ public class TrialScreen extends Parent {
 
 		// Color background
 		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
+		
+		// Create timer to keep track of countdown
+		_timeline = new Timeline(new KeyFrame(Duration.millis(10), _tick));
+		_timeline.setCycleCount(Timeline.INDEFINITE);		
+		_timeline.play();
 
 		new FestivalSpeakTask("Spell " + currentWord()).run();
 	}
@@ -179,20 +192,20 @@ public class TrialScreen extends Parent {
 	 */
 	private boolean attemptWord(String word) {
 
-		_txtQuiz.setText("Quiz\n");
+		_txtQuiz.setText(_level + "\n");
 
 		word = word.trim();
 
 		if (word.equals("")) {
 			// Word attempt must contain some characters		
-			_txtQuiz.setText("Quiz\nEnter a word"); 
+			_txtQuiz.setText(_level + "\nEnter a word"); 
 
 			return false;
 		}
 
 		if (word.contains(" ")) {
 			// Word attempt may not contain white space
-			_txtQuiz.setText("Quiz\nMay not contain spaces"); 
+			_txtQuiz.setText(_level + "\nMay not contain spaces"); 
 
 			return false;
 		}
@@ -200,7 +213,7 @@ public class TrialScreen extends Parent {
 		if (!word.matches("[a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText("Quiz\nMay only contain letters"); 
+			_txtQuiz.setText(_level + "\nMay only contain letters"); 
 
 			return false;
 		}
@@ -251,4 +264,17 @@ public class TrialScreen extends Parent {
 	private String currentWord() {
 		return _words.get(_wordIndex);
 	}
+	
+	private EventHandler<ActionEvent> _tick = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent e) {
+			Instant now = Instant.now();
+			long diff = now.toEpochMilli() - _quizStart.toEpochMilli();
+			long timeLeft = QUIZ_LENGTH - diff;
+			long seconds = timeLeft / 1000;
+			long millis = (timeLeft % 1000) / 10;
+			
+			_txtQuiz.setText(_level + "\n" + String.format("%02d", seconds) + ":" + String.format("%02d", millis));
+		}	
+	};
 }
