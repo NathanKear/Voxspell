@@ -214,6 +214,7 @@ public class QuizScreen extends Parent {
 		if (correct) {
 			speechOutput = speechOutput + "Correct..";
 			_progressBarBlocks[_wordIndex].setImage(GREEN_BLOCK);
+			_masteredWords++;
 		} else {
 			speechOutput = speechOutput + "Incorrect..";
 			_progressBarBlocks[_wordIndex].setImage(RED_BLOCK);
