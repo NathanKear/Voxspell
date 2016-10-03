@@ -39,6 +39,7 @@ public class TestedWordsScreen extends Parent {
 			// Remove any correct word spellings, we only need to show incorrect spellings
 			if (key.toLowerCase().equals(attempts.get(key).toLowerCase())) {
 				attempts.remove(key);
+				i--;
 			}
 		}
 		
