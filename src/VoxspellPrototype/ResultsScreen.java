@@ -87,6 +87,10 @@ public class ResultsScreen extends Parent {
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		
+		if (correctWords == wordListLength) {
+			btnTestedWords.setDisable(true);
+		}
+		
 		final int words = correctWords;
 		final int length = wordListLength;
 		final String name = listName;
