@@ -23,10 +23,10 @@ public class ResultsScreen extends Parent {
 	private Window _window;
 
 	// Content styling constants
-	private final String BTN_RETURN_TEXT = "Return";
-	private final String BTN_TESTED_WORDS_TEXT = "Tested Words";
-	private final String BTN_REWARD_TEXT = "Reward";
-	private final int VBX_SPACING = 50;
+	private final String BTN_RETURN_TEXT = "Return to Menu";
+	private final String BTN_TESTED_WORDS_TEXT = "View Mistakes";
+	private final String BTN_REWARD_TEXT = "Watch Reward";
+	private final int VBX_SPACING = 20;
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
@@ -49,7 +49,7 @@ public class ResultsScreen extends Parent {
 
 		// Create quiz title text
 		Text txtResults;
-		txtResults = new Text("You got " + correctWords + "/" + wordListLength);
+		txtResults = new Text("You Got " + correctWords + "/" + wordListLength + " Correct");
 		txtResults.prefWidth(_window.GetWidth());
 		txtResults.setTextAlignment(TextAlignment.CENTER);
 		txtResults.setWrappingWidth(_window.GetWidth());
