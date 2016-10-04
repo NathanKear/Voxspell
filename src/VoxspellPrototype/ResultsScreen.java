@@ -65,7 +65,6 @@ public class ResultsScreen extends Parent {
 		btnReward.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-
 		// Does user get special reward (inverts video colors).
 		final boolean specialReward = correctWords == wordListLength;
 
@@ -126,7 +125,7 @@ public class ResultsScreen extends Parent {
 		this.getChildren().addAll(root);		
 		root.setStyle("-fx-background-color: " + BACK_COLOR + ";");
 
-		if (correctWords < VoxspellPrototype.QUIZ_LENGTH - 1) {
+		if (correctWords < wordListLength - 1) {
 			// Dont unlock reward or next level.
 			btnReward.setDisable(true);	
 		} else {

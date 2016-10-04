@@ -10,6 +10,8 @@ import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -30,6 +32,7 @@ public class MainScreen extends Parent {
 	private final String BTN_TRIAL_TEXT = "Time-\nTrial";
 	private final String BTN_STATS_TEXT = "Stats";
 	private final String BTN_ADDLIST_TEXT = "Add\nList";
+	private final String BTN_HELP_TEXT = "?";
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
@@ -37,7 +40,7 @@ public class MainScreen extends Parent {
 	private final int BTN_LRG_WIDTH = 250;
 	private final int BTN_LRG_HEIGHT = 250;
 	private final int BTN_SML_WIDTH = 75;
-	private final int BTN_SML_HEIGHT = 75;
+	private final int BTN_SML_HEIGHT = 65;
 	private final Insets INSETS = new Insets(30, 30, 30, 30);
 	private final int GRD_HGAP = 30;
 	private final int GRD_VGAP = 30;
@@ -76,17 +79,22 @@ public class MainScreen extends Parent {
 		// Add menu bar and text to root node
 		root.add(welcomeText, 1, 1, 3, 1);
 		
-		Button btnNew, btnTrial, btnStats, btnAddList, btnQuit, btnOptions;
+		Button btnNew, btnTrial, btnStats, btnAddList, btnQuit, btnOptions, btnHelp;
+		
+		ImageView imgOptions = new ImageView(IMG_OPTIONS);
+		ImageView imgQuit = new ImageView(IMG_EXIT);
+		
+		imgOptions.setFitHeight(45);
+		imgOptions.setFitWidth(45);
 		
 		// Create buttons		
 		btnNew = new Button(BTN_NEW_TEXT, new ImageView(IMG_NEW));
 		btnTrial = new Button(BTN_TRIAL_TEXT, new ImageView(IMG_TRIAL));
 		btnStats = new Button(BTN_STATS_TEXT, new ImageView(IMG_STATS));
 		btnAddList = new Button(BTN_ADDLIST_TEXT, new ImageView(IMG_ADDLIST));
-		btnQuit = new Button("", new ImageView(IMG_EXIT));
-		btnOptions = new Button("", new ImageView(IMG_OPTIONS));
-		
-		
+		btnHelp = new Button(BTN_HELP_TEXT);
+		btnOptions = new Button("", imgOptions);
+//		btnQuit = new Button("", imgQuit);
 		
 		// Set button style properties
 		btnNew.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
@@ -100,13 +108,16 @@ public class MainScreen extends Parent {
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		btnAddList.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
-				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-		btnQuit.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
-				" -fx-base: " + BTN_COLOR + ";" + 
-				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
+				" -fx-text-fill: " + BTN_FONT_COLOR + ";");		
 		btnOptions.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
+		btnHelp.setStyle("-fx-font: " + (BTN_FONT_SIZE + 10) + " arial;" + 
+				" -fx-base: " + BTN_COLOR + ";" + 
+				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
+//		btnQuit.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
+//				" -fx-base: " + BTN_COLOR + ";" + 
+//				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		
 		// Set width and height of buttons
 		btnNew.setPrefWidth(BTN_LRG_WIDTH); 
@@ -121,22 +132,26 @@ public class MainScreen extends Parent {
 		btnAddList.setPrefWidth(BTN_LRG_WIDTH); 
 		btnAddList.setPrefHeight(BTN_LRG_HEIGHT);
 		
-		btnQuit.setPrefWidth(BTN_SML_WIDTH); 
-		btnQuit.setPrefHeight(BTN_SML_HEIGHT);
+//		btnQuit.setPrefWidth(BTN_SML_WIDTH); 
+//		btnQuit.setPrefHeight(BTN_SML_HEIGHT);
 		
 		btnOptions.setPrefWidth(BTN_SML_WIDTH); 
 		btnOptions.setPrefHeight(BTN_SML_HEIGHT);
+		
+		btnHelp.setPrefWidth(BTN_SML_WIDTH);
+		btnHelp.setPrefHeight(BTN_SML_HEIGHT);
 		
 		// Add buttons to pane
 		root.add(btnNew, 1, 2);
 		root.add(btnTrial, 1, 3);
 		root.add(btnAddList, 2, 2);
 		root.add(btnStats, 2, 3);
-		root.add(btnQuit, 3, 3);
-		GridPane.setValignment(btnQuit, VPos.BOTTOM);
+//		root.add(btnQuit, 3, 3);
+//		GridPane.setValignment(btnQuit, VPos.BOTTOM);
 		root.add(btnOptions, 0, 3);
 		GridPane.setValignment(btnOptions, VPos.BOTTOM);
-		
+		root.add(btnHelp, 3, 3);
+		GridPane.setValignment(btnHelp, VPos.BOTTOM);
 
 		// Define button actions
 		btnNew.setOnAction(new EventHandler<ActionEvent>() {
@@ -171,17 +186,27 @@ public class MainScreen extends Parent {
 						new FileChooser.ExtensionFilter(".txt", "*.txt"),
 						new FileChooser.ExtensionFilter("All", "*.*"));
 				File file = chooser.showOpenDialog(_window.GetWindowStage());
-				WordList.GetWordList().SetWordFile(file.getPath());
-				WordList.GetWordList().ReloadWordList();
+				
+				if (file != null) {
+					WordList.GetWordList().SetWordFile(file.getPath());
+					WordList.GetWordList().ReloadWordList();
+				}
 			}	
 		});
 		
-		btnQuit.setOnAction(new EventHandler<ActionEvent>() {
+//		btnQuit.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				WordList wordList = WordList.GetWordList();
+//				wordList.saveWordListToDisk();
+//				Platform.exit();
+//			}	
+//		});
+		
+		btnHelp.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				WordList wordList = WordList.GetWordList();
-				wordList.saveWordListToDisk();
-				Platform.exit();
+				_window.SetWindowScene(new Scene(new HelpScreen(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
