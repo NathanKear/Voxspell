@@ -67,7 +67,15 @@ public class HelpScreen extends Parent {
 			+ "		China\n"
 			+ "\n"
 			+ "\n"
-			+ "Options: Can select several different speech voices and speeds.\n";
+			+ "Options: Can select several different speech voices and speeds.\n"
+			+ "\n"
+			+ "\n"
+			+ "Sound Effects:\n"
+			+ "		Correct noise from https://www.freesound.org/people/ertfelda/sounds/243701/\n"
+			+ "		Incorrect noise from https://www.freesound.org/people/Bertrof/sounds/131657/\n"
+			+ "		Cheering from https://www.freesound.org/people/Tomlija/sounds/99634/\n"
+			+ "		Clock tick from https://www.freesound.org/people/Jagadamba/sounds/254316/\n"
+			+ "";
 
 	public HelpScreen(Window window) {
 		this._window = window;
@@ -91,7 +99,7 @@ public class HelpScreen extends Parent {
 		
 		VBox root = new VBox(VBX_GAP);
 		root.setPadding(INSETS);
-		
+
 		Button returnToMenuBtn;
 		returnToMenuBtn = new Button(TXT_RETURN);
 		returnToMenuBtn.setPrefWidth(_window.GetWidth() - INSETS.getLeft() - INSETS.getRight());

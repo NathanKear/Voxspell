@@ -66,6 +66,7 @@ public class ResultsScreenTrial extends Parent {
 				" -fx-fill: " + TXT_FONT_COLOR + ";");
 		
 		if (correctWords >= level.GetGoldThreshold()) {
+			new FFPlayTask(VoxspellPrototype.CHEER_SOURCE).run();
 			txtResults.setText("Gold! Congratulations.\n");
 			imgMedal.setImage(MEDAL_GOLD);
 		} else if (correctWords >= level.GetSilverThreshold()) {

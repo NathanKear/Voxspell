@@ -129,6 +129,9 @@ public class ResultsScreen extends Parent {
 			// Dont unlock reward or next level.
 			btnReward.setDisable(true);	
 		} else {
+			
+			new FFPlayTask(VoxspellPrototype.CHEER_SOURCE).run();
+			
 			// Unlock reward and next level.
 			if (listName == WordList.GetWordList().HighestUnlockedLevel().levelName()) {
 				String level = "";

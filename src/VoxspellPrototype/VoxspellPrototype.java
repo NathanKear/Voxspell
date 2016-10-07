@@ -16,6 +16,10 @@ public class VoxspellPrototype extends Application {
 	public static final String MIDDLE_COLOR = "#BCBCBC";
 	public static final String DARK_COLOR = "#424242";
 	public static final String MEDIA_SOURCE = "/home/nathan/workspace/ccar-nkea_se206-a03/media/bunny.mp4";
+	public static final String CORRECT_SOURCE = "media/audio/correct.wav";
+	public static final String INCORRECT_SOURCE = "media/audio/incorrect.wav";
+	public static final String CHEER_SOURCE = "media/audio/cheer.wav";
+	public static final String TICK_SOURCE = "media/audio/tick.wav";
 	public static final int BTN_FONT_SIZE = 22;
 	public static final int TXT_FONT_SIZE = 46;
 	public static final int TXT_FONT_SIZE_FINE = 18;

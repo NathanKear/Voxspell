@@ -231,7 +231,8 @@ public class TrialScreen extends Parent {
 		_userAttempts.put(currentWord(), word);
 
 		if (correct) {
-			speechOutput = speechOutput + "Correct..";
+			new FFPlayTask(VoxspellPrototype.CORRECT_SOURCE).run();
+			
 			if (_correctWords < _progressBarBlocks.length) {
 				if (_correctWords >= _level.GetGoldThreshold() - 1) {
 					_progressBarBlocks[_correctWords].setImage(GOLD_BLOCK);
@@ -245,14 +246,12 @@ public class TrialScreen extends Parent {
 			}
 			_correctWords++;
 		} else {
-			speechOutput = speechOutput + "Incorrect..";
+			new FFPlayTask(VoxspellPrototype.INCORRECT_SOURCE).run();
 		}
 		
 		nextWord();
 		
-		speechOutput = speechOutput + " Spell " + currentWord();
-
-		new FestivalSpeakTask(speechOutput).run();
+		new FestivalSpeakTask(currentWord()).run();
 		_tfdAttempt.clear();
 
 		return correct;

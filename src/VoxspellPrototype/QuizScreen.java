@@ -15,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -60,7 +59,6 @@ public class QuizScreen extends Parent {
 	private int _wordIndex = 0;
 	private int _masteredWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
-	
 
 	public QuizScreen(Window window, String wordlistName) {
 		this._window = window;
@@ -211,17 +209,19 @@ public class QuizScreen extends Parent {
 		WordList.GetWordList().AddWordStat(currentWord(), _level, correct);
 		_userAttempts.put(currentWord(), word);
 
+		//MediaPlayer sound;
+		
 		if (correct) {
-			speechOutput = speechOutput + "Correct..";
 			_progressBarBlocks[_wordIndex].setImage(GREEN_BLOCK);
 			_masteredWords++;
+			new FFPlayTask(VoxspellPrototype.CORRECT_SOURCE).run();
 		} else {
-			speechOutput = speechOutput + "Incorrect..";
 			_progressBarBlocks[_wordIndex].setImage(RED_BLOCK);
+			new FFPlayTask(VoxspellPrototype.INCORRECT_SOURCE).run();
 		}
 
 		if (nextWord()) {
-			speechOutput = speechOutput + " Spell " + currentWord();
+			speechOutput = currentWord();
 		}
 
 		new FestivalSpeakTask(speechOutput).run();
@@ -241,7 +241,6 @@ public class QuizScreen extends Parent {
 			
 			return true;
 		} else {
-			// No words left to spell
 			_window.SetWindowScene(new Scene(new ResultsScreen(_window, _masteredWords, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
 
 			return false;

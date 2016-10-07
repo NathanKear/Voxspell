@@ -48,12 +48,16 @@ public class CountdownScreen extends Parent {
 		_timeline = new Timeline(new KeyFrame(Duration.millis(1000), _tick));
 		_timeline.setCycleCount(Timeline.INDEFINITE);		
 		_timeline.play();
+		
+		new FFPlayTask(VoxspellPrototype.TICK_SOURCE).run();
 	}
 	
 	private EventHandler<ActionEvent> _tick = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
 			_txtCountDown.setText("\n\n\nReady in\n\n" + --_count + "\n\n\n\n\n\n\n\n\n\n\n");
+			
+			new FFPlayTask(VoxspellPrototype.TICK_SOURCE).run();
 			
 			if (_count <= 0) {
 				_window.SetWindowScene(new Scene(new TrialScreen(_window, _wordlist), _window.GetWidth(), _window.GetHeight()));
