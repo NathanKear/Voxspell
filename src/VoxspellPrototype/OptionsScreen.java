@@ -62,7 +62,7 @@ public class OptionsScreen extends Parent {
 		optionsLabel.setWrappingWidth(_window.GetWidth());
 		
 		optionsLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" + 
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		
 		//Creating a button to return to menu
 		Button returnToMenuBtn = new Button("Return To Main Menu");
@@ -119,7 +119,7 @@ public class OptionsScreen extends Parent {
 		Label voiceSpeedLabel = new Label("Select voice speed");
 		voiceSpeedLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
-				" -fx-text-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-text-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		voiceSpeedLabel.setPrefWidth(TXT_WIDTH);
 
 		voiceSpeedBox.getChildren().addAll(voiceSpeedLabel, voiceSpeedComboBox);
@@ -156,7 +156,7 @@ public class OptionsScreen extends Parent {
 		Label voiceTypeLabel = new Label("Select voice type");
 		voiceTypeLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
-				" -fx-text-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-text-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		voiceTypeLabel.setPrefWidth(TXT_WIDTH);
 		
 		voiceTypeBox.getChildren().addAll(voiceTypeLabel, voiceTypeComboBox);

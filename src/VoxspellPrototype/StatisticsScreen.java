@@ -29,7 +29,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 public class StatisticsScreen extends Parent {
@@ -136,11 +135,11 @@ public class StatisticsScreen extends Parent {
 		Text goldCount = new Text("x" + Integer.toString(medalCount[2]));
 
 		bronzeCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		silverCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		goldCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 
 		ImageView bronzeMedal = new ImageView(MEDAL_BRONZE);
 		ImageView silverMedal = new ImageView(MEDAL_SILVER);

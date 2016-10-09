@@ -8,12 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 public class HelpScreen extends Parent {
 
@@ -87,7 +83,7 @@ public class HelpScreen extends Parent {
 		Text helpText = new Text(TXT_HELP);
 		
 		helpText.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		helpText.prefWidth(_window.GetWidth() - INSETS.getLeft() - INSETS.getRight() - TXT_INSETS.getLeft() - TXT_INSETS.getRight() - 20);
 		helpText.setWrappingWidth(_window.GetWidth() - INSETS.getLeft() - INSETS.getRight() - TXT_INSETS.getLeft() - TXT_INSETS.getRight() - 20);
 		

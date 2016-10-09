@@ -2,18 +2,14 @@ package VoxspellPrototype;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -84,12 +80,12 @@ public class MediaScreen extends Parent {
     	btnSpookify.setPreferredSize(new Dimension(_window.GetWidth() / 3, BTN_HEIGHT));
     	
     	// Set button color
-    	btnPause.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
-    	btnLeave.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
-    	btnMute.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
-    	btnForward.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
-    	btnBack.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
-    	btnSpookify.setBackground(Color.decode(VoxspellPrototype.BACK_COLOR));
+    	btnPause.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
+    	btnLeave.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
+    	btnMute.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
+    	btnForward.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
+    	btnBack.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
+    	btnSpookify.setBackground(Color.decode(VoxspellPrototype.BUTTON_COLOR));
     	
     	// Set button text color
     	btnPause.setForeground(Color.decode(VoxspellPrototype.LIGHT_COLOR));

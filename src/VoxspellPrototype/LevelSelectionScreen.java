@@ -23,14 +23,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
 
@@ -134,7 +130,7 @@ public class LevelSelectionScreen extends Parent {
 		Text levelSelectLabel = new Text("Please select which level you wish to start at. All levels below "
 				+ "the level you choose, and the level itself, will be unlocked!");
 		levelSelectLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		levelSelectLabel.setWrappingWidth(_window.GetWidth());
 		
 		root.setStyle("-fx-background-color: " + BACK_COLOR);
@@ -217,7 +213,7 @@ public class LevelSelectionScreen extends Parent {
 		//Creating text to tell the user what this screen is
 		Text txtSelection = new Text(TXT_SELECT_LEVEL);
 		txtSelection.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		root.getChildren().add(txtSelection);
 
 		//Looping through all the levels and getting their name and adding a button for them

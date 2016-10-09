@@ -54,7 +54,7 @@ public class ResultsScreen extends Parent {
 		txtResults.setTextAlignment(TextAlignment.CENTER);
 		txtResults.setWrappingWidth(_window.GetWidth());
 		txtResults.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 
 		// Create button that links to reward video
 		Button btnReward;

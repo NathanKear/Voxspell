@@ -34,7 +34,7 @@ public class CountdownScreen extends Parent {
 
 		_txtCountDown = new Text("\n\n\nReady in\n\n" + _count + "\n\n\n\n\n\n\n\n\n\n\n");
 		_txtCountDown.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		_txtCountDown.setWrappingWidth(_window.GetWidth());
 		_txtCountDown.setTextAlignment(TextAlignment.CENTER);
 		

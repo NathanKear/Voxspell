@@ -95,7 +95,7 @@ public class TrialScreen extends Parent {
 		_txtQuiz.setTextAlignment(TextAlignment.CENTER);
 		_txtQuiz.setWrappingWidth(_window.GetWidth());
 		_txtQuiz.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		
 		_progressBar = new HBox(PROGBAR_GAP);
 		_progressBar.setPrefWidth(_window.GetWidth() - (2 * PROGBAR_GAP));

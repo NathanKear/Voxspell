@@ -10,8 +10,6 @@ import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -74,7 +72,7 @@ public class MainScreen extends Parent {
 		welcomeText.setWrappingWidth((BTN_LRG_WIDTH * 2) + GRD_HGAP);
 		welcomeText.setTextAlignment(TextAlignment.CENTER);	
 		welcomeText.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + TXT_FONT_COLOR + ";");
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
 		
 		// Add menu bar and text to root node
 		root.add(welcomeText, 1, 1, 3, 1);
