@@ -16,6 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +28,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 public class StatisticsScreen extends Parent {
@@ -39,6 +43,12 @@ public class StatisticsScreen extends Parent {
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final int BTN_HEIGHT = 70;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
+	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
+	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
+
+	private final Image MEDAL_GOLD = new Image(getClass().getResourceAsStream("/media/images/goldIcon.png"));
+	private final Image MEDAL_SILVER = new Image(getClass().getResourceAsStream("/media/images/silverIcon.png"));
+	private final Image MEDAL_BRONZE = new Image(getClass().getResourceAsStream("/media/images/bronzeIcon.png"));
 	
 	public StatisticsScreen(Window window) {
 		
@@ -83,6 +93,10 @@ public class StatisticsScreen extends Parent {
 		HBox buttonRow = new HBox(10);
 		buttonRow.setPrefWidth(_window.GetWidth());
 		buttonRow.setPadding(new Insets(10, 10, 10, 10));
+
+		HBox medalRow = new HBox(10);
+		buttonRow.setPrefWidth(_window.GetWidth());
+		buttonRow.setPadding(new Insets(10, 10, 10, 10));
 		
 		Button btnReturn;
 		btnReturn = new Button(BTN_RETURN_TEXT);
@@ -114,10 +128,35 @@ public class StatisticsScreen extends Parent {
 				_window.SetWindowScene(new Scene(new StatisticsScreen(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
+
+		int[] medalCount = WordList.GetWordList().GetMedalCount();
+
+		Text bronzeCount = new Text("x" + Integer.toString(medalCount[0]) + "           ");
+		Text silverCount = new Text("x" + Integer.toString(medalCount[1]) + "           ");
+		Text goldCount = new Text("x" + Integer.toString(medalCount[2]));
+
+		bronzeCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+				" -fx-fill: " + TXT_FONT_COLOR + ";");
+		silverCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+				" -fx-fill: " + TXT_FONT_COLOR + ";");
+		goldCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+				" -fx-fill: " + TXT_FONT_COLOR + ";");
+
+		ImageView bronzeMedal = new ImageView(MEDAL_BRONZE);
+		ImageView silverMedal = new ImageView(MEDAL_SILVER);
+		ImageView goldMedal = new ImageView(MEDAL_GOLD);
+
+		bronzeMedal.setFitWidth(50); bronzeMedal.setFitHeight(50);
+		silverMedal.setFitWidth(50); silverMedal.setFitHeight(50);
+		goldMedal.setFitWidth(50); goldMedal.setFitHeight(50);
+
+		medalRow.setAlignment(Pos.BASELINE_CENTER);
+
+		medalRow.getChildren().addAll(bronzeMedal, bronzeCount, silverMedal, silverCount, goldMedal, goldCount);
 		
 		buttonRow.getChildren().addAll(btnReturn, btnClear);
 		
-		root.getChildren().addAll(buttonRow, statsTabPane);
+		root.getChildren().addAll(buttonRow, medalRow, statsTabPane);
 		
 		//Adding the statspane
 		this.getChildren().add(root);

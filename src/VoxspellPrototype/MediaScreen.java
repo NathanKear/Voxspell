@@ -40,7 +40,7 @@ public class MediaScreen extends Parent {
 	
 	private boolean _specialReward;
 	
-	public MediaScreen(Window window, boolean specialReward) {	
+	public MediaScreen(Window window,  boolean specialReward) {	
 		
 		this._window = window;
 		this._specialReward = specialReward;
@@ -65,6 +65,7 @@ public class MediaScreen extends Parent {
 	
 	private JFrame createJFrame() {
 		final JFrame frame = new JFrame("Suprise!");	
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		// Create all buttons
     	final JButton btnPause = new JButton("Pause");

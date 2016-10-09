@@ -1,6 +1,5 @@
 package VoxspellPrototype;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class TrialScreen extends Parent {
 	private HBox _progressBar;
 	private ImageView[] _progressBarBlocks;
 
-	private final Instant _quizStart;
+	private final long _quizStart;
 	private final Timeline _timeline;
 	private List<String> _words;
 	private int _wordIndex = 0;
@@ -77,7 +76,7 @@ public class TrialScreen extends Parent {
 		
 		_levelName = wordlistName;
 		_level = WordList.GetWordList().getLevelFromName(_levelName);
-		_quizStart = Instant.now();
+		_quizStart = System.currentTimeMillis();
 		
 		Level currentLevel =  WordList.GetWordList().getLevelFromName(wordlistName);
 		_words = currentLevel.GetWordsNonBias(currentLevel.Size());
@@ -297,8 +296,7 @@ public class TrialScreen extends Parent {
 				_firstTick = !_firstTick;
 			}
 			
-			Instant now = Instant.now();
-			long diff = now.toEpochMilli() - _quizStart.toEpochMilli();
+			long diff = System.currentTimeMillis() - _quizStart;
 			long timeLeft = QUIZ_LENGTH - diff;
 			SetTimeText(timeLeft);
 			

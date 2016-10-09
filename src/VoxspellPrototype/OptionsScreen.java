@@ -22,7 +22,7 @@ public class OptionsScreen extends Parent {
 
 	private Window _window;
 	
-	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
+	private final int TXT_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
@@ -95,11 +95,26 @@ public class OptionsScreen extends Parent {
 				"Very Slow                                                                        "
 				);
 
+		
+
 		final ChoiceBox<String> voiceSpeedComboBox = new ChoiceBox<String>(voiceSpeedOptions);
 		voiceSpeedComboBox.setStyle("-fx-base: " + BTN_COLOR + "; -fx-font: " + BTN_FONT_SIZE + " arial; -fx-text-fill: " + TXT_FONT_COLOR + ";");
 		voiceSpeedComboBox.setPrefHeight(CMB_HEIGHT);
 		voiceSpeedComboBox.setPrefWidth(CMB_WIDTH);
-		//voiceSpeedComboBox.setPromptText("Choose a voice speed");
+
+		
+		double currentSpeed = FestivalSpeakTask.getSpeed();
+
+		int indexToGet = 0;
+		if (currentSpeed == 1.0) {
+			indexToGet = 0;
+		} else if (currentSpeed == 1.5) {
+			indexToGet = 1;
+		} else {
+			indexToGet = 2;
+		}
+
+		voiceSpeedComboBox.setValue(voiceSpeedOptions.get(indexToGet));
 
 		Label voiceSpeedLabel = new Label("Select voice speed");
 		voiceSpeedLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" + 
@@ -122,6 +137,21 @@ public class OptionsScreen extends Parent {
 		//voiceTypeComboBox.setPromptText("Choose a voice");
 		voiceTypeComboBox.setPrefHeight(CMB_HEIGHT);
 		voiceTypeComboBox.setPrefWidth(CMB_WIDTH);
+		
+		
+		String currentVoice = FestivalSpeakTask.getVoice();
+
+		indexToGet = 0;
+		if (currentVoice.equals("kal_diphone")) {
+			indexToGet = 0;
+		} else if (currentVoice.equals("rab_diphone")) {
+			indexToGet = 1;
+		} else {
+			indexToGet = 2;
+		}
+
+		voiceTypeComboBox.setValue(voiceTypeOptions.get(indexToGet));
+			
 
 		Label voiceTypeLabel = new Label("Select voice type");
 		voiceTypeLabel.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" + 
@@ -138,11 +168,11 @@ public class OptionsScreen extends Parent {
 			public void changed(ObservableValue<? extends String> arg0,
 					String oldValue, String newValue) {
 					String voice = "";
-				if(newValue.equals("Male Voice 1")) {
+				if(newValue.trim().equals("Male Voice 1")) {
 					voice = "kal_diphone";
-				} else if (newValue.equals("Male Voice 2")) {
+				} else if (newValue.trim().equals("Male Voice 2")) {
 					voice = "rab_diphone";
-				} else if (newValue.equals("New Zealand Male Voice")) {
+				} else if (newValue.trim().equals("New Zealand Male Voice")) {
 					voice = "akl_nz_jdt_diphone";
 				}
 				FestivalSpeakTask.changeVoice(voice);
@@ -156,10 +186,10 @@ public class OptionsScreen extends Parent {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String oldValue, String newValue) {
-				if (newValue == "Normal") {
+				if (newValue.trim().equals("Normal")) {
 					FestivalSpeakTask.SetSpeed(1.0);
 					new FestivalSpeakTask("Normal speed").run();
-				} else if (newValue == "Slow") {
+				} else if (newValue.trim().equals("Slow")) {
 					FestivalSpeakTask.SetSpeed(1.5);
 					new FestivalSpeakTask("Slow speed").run();
 				} else {

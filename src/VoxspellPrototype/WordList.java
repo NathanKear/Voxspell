@@ -303,6 +303,28 @@ public class WordList extends ArrayList<Level> {
 	public List<String> GetRandomWords(String wordlistName, int listCount) {
 		return getLevelFromName(wordlistName).GetWordsBias(listCount);
 	}
+
+	public int[] GetMedalCount() {
+		int[] medalCount = new int[3];
+
+		for (Level l : WordList.GetWordList()) {
+			switch (l.GetMedal()) {
+				case Bronze:
+					medalCount[0]++;
+					break;
+				case Silver:
+					medalCount[1]++;
+					break;
+				case Gold:
+					medalCount[2]++;
+					break;
+				default:
+					break;
+			}
+		}
+
+		return medalCount;
+	}
 	
 	public void AddWordStat(String word, String list, boolean success) {
 		getLevelFromName(list).AddToWordStat(word, success);

@@ -9,7 +9,7 @@ class FestivalSpeakTask extends Task<Void> {
 	private static String _voice = "kal_diphone";
 	
 	/**
-	 * Change the speaking rate
+	 * Change the speaking rate.
 	 * @param speed 1.0 = normal speech rate, < 1.0 = slower, > 1.0 = faster.
 	 */
 	public static void SetSpeed(double speed) {
@@ -19,19 +19,35 @@ class FestivalSpeakTask extends Task<Void> {
 	}
 	
 	/**
-	 * Create new speak task for festival to say the given word/phrase
-	 * @param word Phrase to speak
+	 * Get the current speaking rate.
+	 * @return speed 1.0 = normal speech rate, < 1.0 = slower, > 1.0 = faster.
+	 */
+	public static double getSpeed() {
+		return _speed;
+	}
+	
+	/**
+	 * Create new speak task for festival to say the given word/phrase.
+	 * @param word Phrase to speak.
 	 */
 	public FestivalSpeakTask(String word) {
 		this._word = word;
 	}
 
 	/**
-	 * Change the voice
-	 * @param voice
+	 * Change the voice.
+	 * @param voice.
 	 */
 	public static void changeVoice(String voice) {
 		_voice = voice;
+	}
+
+	/**
+	 * Get the currently set voice.
+	 * @param voice currently set.
+	 */
+	public static String getVoice() {
+		return _voice;
 	}
 
 	@Override
