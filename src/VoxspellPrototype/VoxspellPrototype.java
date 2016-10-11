@@ -1,7 +1,7 @@
 package VoxspellPrototype;
 
-import VoxspellPrototype.Model.WordList;
-import VoxspellPrototype.View.MainScreen;
+import VoxspellPrototype.Model.WordListModel;
+import VoxspellPrototype.View.MainView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,7 +12,7 @@ import javafx.stage.WindowEvent;
 public class VoxspellPrototype extends Application {
 
 	// Global constants (naughty public static!!)
-	public static final String BACK_COLOR = "#fffad6";
+	public static final String BACK_COLOR = "#fffbf4";
 	public static final String BUTTON_COLOR = "#62bdd6";
 	public static final String LIGHT_COLOR = "#E9E9E9";
 	public static final String MIDDLE_COLOR = "#BCBCBC";
@@ -26,7 +26,7 @@ public class VoxspellPrototype extends Application {
 	public static final int TXT_FONT_SIZE = 46;
 	public static final int TXT_FONT_SIZE_FINE = 18;
 	public static final int QUIZ_LENGTH = 10;
-	public static final String TXT_FILE = ".spellinglist.txt";
+	public static final String TXT_FILE = "WordLists/NZCER-spelling-lists.txt";
 	
 	private Window _window;
 	
@@ -54,7 +54,7 @@ public class VoxspellPrototype extends Application {
 		
 		// Create and format window and set to intial screen
 		_window = new Window(stage, WINDOW_WIDTH, WINDOW_HEIGHT);
-		_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+		_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 		_window.SetWindowTitle(WINDOW_TITLE);	
 		_window.CenterOnScreen();
 		_window.Show(true);
@@ -70,7 +70,7 @@ public class VoxspellPrototype extends Application {
 	 */
 	public void stop(){
 	    //Save words to disk
-		WordList wordList = WordList.GetWordList();
+		WordListModel wordList = WordListModel.GetWordList();
 		wordList.saveWordListToDisk();
 	}
 	

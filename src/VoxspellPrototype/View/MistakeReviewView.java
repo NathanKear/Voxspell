@@ -3,8 +3,10 @@ package VoxspellPrototype.View;
 import java.util.HashMap;
 import java.util.Map;
 
-import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.View.QuizResultsView;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,7 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-public class TestedWordsScreen extends Parent {
+public class MistakeReviewView extends Parent {
 
 	private Window _window;
 	
@@ -32,7 +34,7 @@ public class TestedWordsScreen extends Parent {
 
 	private final HashMap<String, String> userAttempts;
 
-	public TestedWordsScreen(Window window, HashMap<String, String> attempts, int correctWords, int wordListLength, String listName) {
+	public MistakeReviewView(Window window, HashMap<String, String> attempts, int correctWords, int wordListLength, String listName) {
 		this._window = window;
 		
 		for (int i = 0; i < attempts.keySet().size(); i++) {
@@ -66,13 +68,13 @@ public class TestedWordsScreen extends Parent {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new ResultsScreen(_window, mastered, size, levelName, userAttempts), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new QuizResultsView(_window, mastered, size, levelName, userAttempts), _window.GetWidth(), _window.GetHeight()));
 			}
 			
 		});
 		
-		TableColumn<Map.Entry<String, String>, String> wordsCol = new TableColumn<Map.Entry<String, String>, String>("Tested Words");
-		TableColumn<Map.Entry<String, String>, String> attemptsCol = new TableColumn<Map.Entry<String, String>, String>("Your Answer");
+		TableColumn<Map.Entry<String, String>, String> wordsCol = new TableColumn<Map.Entry<String, String>, String>("Correct Spelling");
+		TableColumn<Map.Entry<String, String>, String> attemptsCol = new TableColumn<Map.Entry<String, String>, String>("Your Spelling");
 
 		wordsCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
 
@@ -94,6 +96,7 @@ public class TestedWordsScreen extends Parent {
 		ObservableList<Map.Entry<String, String>> data = FXCollections.observableArrayList(attempts.entrySet());
 		final TableView<Map.Entry<String,String>> resultsTable = new TableView<>(data);
 
+		resultsTable.getColumns().addAll(wordsCol, attemptsCol);
 		resultsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		resultsTable.setStyle("-fx-base: " + BACK_COLOR);
 		resultsTable.setMinHeight(_window.GetHeight());

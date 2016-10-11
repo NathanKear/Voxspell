@@ -7,7 +7,7 @@ import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
 import VoxspellPrototype.Concurrent.FFPlayTask;
 import VoxspellPrototype.Concurrent.FestivalSpeakTask;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.WordListModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class QuizScreen extends Parent {
+public class QuizView extends Parent {
 
 	private Window _window;
 
@@ -64,12 +64,12 @@ public class QuizScreen extends Parent {
 	private int _masteredWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 
-	public QuizScreen(Window window, String wordlistName) {
+	public QuizView(Window window, String wordlistName) {
 		this._window = window;
 
 		_level = wordlistName;
 		
-		_words = WordList.GetWordList().GetRandomWords(wordlistName, VoxspellPrototype.QUIZ_LENGTH);
+		_words = WordListModel.GetWordList().GetRandomWords(wordlistName, VoxspellPrototype.QUIZ_LENGTH);
 
 		// Create root pane and set its size to whole window
 		VBox root = new VBox(VBX_SPACING);
@@ -210,7 +210,7 @@ public class QuizScreen extends Parent {
 		boolean correct = (word.toLowerCase().equals(currentWord().toLowerCase()));
 		String speechOutput = "";
 		
-		WordList.GetWordList().AddWordStat(currentWord(), _level, correct);
+		WordListModel.GetWordList().AddWordStat(currentWord(), _level, correct);
 		_userAttempts.put(currentWord(), word);
 
 		//MediaPlayer sound;
@@ -245,7 +245,7 @@ public class QuizScreen extends Parent {
 			
 			return true;
 		} else {
-			_window.SetWindowScene(new Scene(new ResultsScreen(_window, _masteredWords, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
+			_window.SetWindowScene(new Scene(new QuizResultsView(_window, _masteredWords, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
 
 			return false;
 		}

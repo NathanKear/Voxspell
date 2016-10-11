@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Level {
+public class LevelModel {
 	
 	private final int _goldThreshold = 18;
 	private final int _silverThreshold = 14;
@@ -29,7 +29,7 @@ public class Level {
 	 * @param levelName - name of level
 	 * @param levelMap - HashMap with words and stats
 	 */
-	public Level(String levelName, HashMap<String, List<Character>> levelMap) {
+	public LevelModel(String levelName, HashMap<String, List<Character>> levelMap) {
 		_levelName = levelName;
 		_levelMap = levelMap;
 	}
@@ -190,6 +190,8 @@ public class Level {
 		for (List<Character> stats : _levelMap.values()) {
 			stats.clear();
 		}
+		
+		_record = 0;
 	}
 	
 	public boolean SubmitCorrectResponses(int correct) {

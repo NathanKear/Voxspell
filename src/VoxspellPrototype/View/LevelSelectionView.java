@@ -12,9 +12,9 @@ import java.util.List;
 
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
-import VoxspellPrototype.Model.Level;
+import VoxspellPrototype.Model.LevelModel;
 import VoxspellPrototype.Model.QuizType;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.WordListModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -35,7 +35,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
 
-public class LevelSelectionScreen extends Parent {
+public class LevelSelectionView extends Parent {
 
 	private Window _window;
 	private List<Button> _btnLevels;	
@@ -68,7 +68,7 @@ public class LevelSelectionScreen extends Parent {
 	private double _scrollPosition = 0;
 	private Timeline _timeline;
 
-	public LevelSelectionScreen(Window window, QuizType quizType) {
+	public LevelSelectionView(Window window, QuizType quizType) {
 		super();
 
 		this._window = window;
@@ -81,7 +81,7 @@ public class LevelSelectionScreen extends Parent {
 		File wordlog = new File("Word-Log");
 
 		//If the user has unlocked levels then go straight to the Level Selection Screen
-		if(WordList.GetWordList().size() > 0 && WordList.GetWordList().get(0).isUnlocked()) {
+		if(WordListModel.GetWordList().size() > 0 && WordListModel.GetWordList().get(0).isUnlocked()) {
 			GenerateLevelSelectionScreen();
 			
 		//Else if the word log doesn't exist then let the user choose what level they want to start at
@@ -111,14 +111,14 @@ public class LevelSelectionScreen extends Parent {
 	private void ChooseLevelScreen() {
 		
 		//Get the WordList
-		final WordList wordlist = WordList.GetWordList();
+		final WordListModel wordlist = WordListModel.GetWordList();
 
 		//Create the data structure for the level ComboBox
 		ObservableList<String> options = FXCollections.observableArrayList();
 		
 		//Getting the names of each level and adding it to the options list
 		for(int i = 0; i < wordlist.size(); i++) {
-			Level level = wordlist.get(i);
+			LevelModel level = wordlist.get(i);
 			String levelName = level.levelName();
 			options.add(levelName);
 		}
@@ -161,7 +161,7 @@ public class LevelSelectionScreen extends Parent {
 				//Unlocking every level up to and including the level the user selected
 				boolean levelFound = false;
 				for(int i = 0; i < wordlist.size(); i++) {
-					Level level = wordlist.get(i);
+					LevelModel level = wordlist.get(i);
 					String levelName = level.levelName();
 
 					if(!levelFound) {
@@ -187,7 +187,7 @@ public class LevelSelectionScreen extends Parent {
 	private void GenerateLevelSelectionScreen() {
 
 		//Getting the WordList
-		WordList wordlist = WordList.GetWordList();
+		WordListModel wordlist = WordListModel.GetWordList();
 
 		// Create vbox, add all level buttons
 		VBox root = new VBox(BUTTON_SEPERATION);
@@ -204,7 +204,7 @@ public class LevelSelectionScreen extends Parent {
 		returnToMenuBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 
@@ -226,7 +226,7 @@ public class LevelSelectionScreen extends Parent {
 
 		for(int i = 0; i < wordlist.size(); i++) {
 			levelName.add(wordlist.get(i).levelName());
-			Level level = wordlist.get(i);
+			LevelModel level = wordlist.get(i);
 			final String listName = level.levelName();
 
 			ImageView img = new ImageView();
@@ -267,10 +267,10 @@ public class LevelSelectionScreen extends Parent {
 					public void handle(ActionEvent arg0) {
 						switch (_quizType) {
 						case Normal:
-							_window.SetWindowScene(new Scene(new QuizScreen(_window, listName), _window.GetWidth(), _window.GetHeight()));
+							_window.SetWindowScene(new Scene(new QuizView(_window, listName), _window.GetWidth(), _window.GetHeight()));
 							break;
 						case Trial:
-							_window.SetWindowScene(new Scene(new CountdownScreen(_window, listName), _window.GetWidth(), _window.GetHeight()));
+							_window.SetWindowScene(new Scene(new CountdownView(_window, listName), _window.GetWidth(), _window.GetHeight()));
 							break;
 						default:
 							break;

@@ -16,24 +16,38 @@ import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.View.PopupWindow;
 
 @SuppressWarnings("serial")
-public class WordList extends ArrayList<Level> {
+public class WordListModel extends ArrayList<LevelModel> {
 
-	private static WordList _instance = null;
+	private static WordListModel _instance = null;
 	private static String _listFileName = VoxspellPrototype.TXT_FILE;
+	private static String _listName = "NZCER-spelling-lists";
 
-	private WordList() {
+	private WordListModel() {
 		super();
 	}
 	
 	public static void SetWordFile(String filename) {
+		// Save stats of current list to file
+		WordListModel.GetWordList().saveWordListToDisk();
+		
 		_listFileName = filename;
+
+		// Get name of file from the files address
+		// Split around '/' in file address
+		String[] fileLocationArray = _listFileName.split("/");
+		// Split around '.' to get rid of extension
+		String[] fileNameArray = fileLocationArray[fileLocationArray.length - 1].split("\\.");	
+		_listName = fileNameArray[0];
+
+		_instance = null;
+		GetWordList();
 	}
 
 	/**
 	 * This constructor applies the singleton method so that there is one global WordList object
 	 * @return the WordList
 	 */
-	public static WordList GetWordList() {
+	public static WordListModel GetWordList() {
 		if (_instance == null) {
 			_instance = initialiseNathansAwesomeDataStructure(_listFileName);
 			loadStatsFromFile(_instance);
@@ -47,9 +61,10 @@ public class WordList extends ArrayList<Level> {
 	 * 
 	 * @return the reloaded WordList
 	 */
-	public WordList ReloadWordList() {
+	public WordListModel ReloadWordList() {
 		//Reload the WordList by loading stats from file again
 		_instance = initialiseNathansAwesomeDataStructure(_listFileName);
+		loadStatsFromFile(_instance);
 
 		return _instance;
 	}
@@ -67,7 +82,7 @@ public class WordList extends ArrayList<Level> {
 	 * Clears all the stats currently saved in the WordList
 	 */
 	public void ClearStats() {
-		for (Level level : this) {
+		for (LevelModel level : this) {
 			level.ClearStats();
 		}
 	}
@@ -77,7 +92,7 @@ public class WordList extends ArrayList<Level> {
 	 * @return return the name of the unlocked level, otherwise null.
 	 */
 	public String UnlockNextLevel() {
-		for (Level level : this) {
+		for (LevelModel level : this) {
 			if (!level.isUnlocked()) {
 				level.unlockLevel();
 				return level.levelName();
@@ -91,7 +106,7 @@ public class WordList extends ArrayList<Level> {
 	 * Return highest level unlocked.
 	 * @return Highest level unlocked. Null if none unlocked.
 	 */
-	public Level HighestUnlockedLevel() {
+	public LevelModel HighestUnlockedLevel() {
 		for (int i = this.size() - 1; i >= 0; i--) {
 			if (this.get(i).isUnlocked())
 				return this.get(i);
@@ -104,7 +119,7 @@ public class WordList extends ArrayList<Level> {
 	 * Saves all the stats currently in the WordList to a text file
 	 */
 	public void saveWordListToDisk() {
-		File f = new File("Word-Log");
+		File f = new File("WordLists/." + _listName + ".stat");
 
 		try {
 
@@ -116,7 +131,7 @@ public class WordList extends ArrayList<Level> {
 
 			for(int i = 0; i < this.size(); i++) {
 				//Getting a level from the hash map
-				Level level = this.get(i);
+				LevelModel level = this.get(i);
 				HashMap<String, List<Character>> levelMap = level.getMap();
 
 				//Getting an iterator to go over all the words in the level hash map
@@ -149,7 +164,7 @@ public class WordList extends ArrayList<Level> {
 			//Saving which files are unlocked
 			for(int i = 0; i < this.size(); i++) {
 				//Getting a level from the hash map
-				Level level = this.get(i);
+				LevelModel level = this.get(i);
 				if(level.isUnlocked()) {
 					textFileWriter.append("!#" + level.levelName() + "#unlocked#" + level.GetCurrentRecord() + "\n");
 				} else {
@@ -169,10 +184,8 @@ public class WordList extends ArrayList<Level> {
 	 * @param wordList
 	 * @return WordList
 	 */
-	private static WordList loadStatsFromFile(WordList wordList) {
-		File savedWords = new File("Word-Log");
-
-		WordList wordlist = WordList.GetWordList();
+	private static WordListModel loadStatsFromFile(WordListModel wordlist) {
+		File savedWords = new File("WordLists/." + _listName + ".stat");
 		
 		try {
 			if (savedWords.exists()) {
@@ -191,7 +204,7 @@ public class WordList extends ArrayList<Level> {
 						int levelRecord = Integer.parseInt(line.split("#")[3]);
 						
 						// Check all levels if they need to be unlocked
-						for (Level level : wordlist) {
+						for (LevelModel level : wordlist) {
 							if (level.levelName().equals(levelName)) {
 								// Unlock the level
 								if (unlock) {
@@ -206,7 +219,7 @@ public class WordList extends ArrayList<Level> {
 						
 						String level = line.split("#")[0];
 						String word = line.split("#")[1];
-						Level l = wordlist.getLevelFromName(level);
+						LevelModel l = wordlist.getLevelFromName(level);
 						
 						if (line.split("#").length > 2) { 
 							String stat = line.split("#")[2];
@@ -238,7 +251,7 @@ public class WordList extends ArrayList<Level> {
 	 * @param fileName - the name of a file with words to be tested 
 	 * @return WordList
 	 */
-	private static WordList initialiseNathansAwesomeDataStructure(String fileName) {
+	private static WordListModel initialiseNathansAwesomeDataStructure(String fileName) {
 		//Creating the file to read from
 		File wordList = new File(fileName);
 
@@ -247,7 +260,7 @@ public class WordList extends ArrayList<Level> {
 		boolean lastLineWasWord = false;
 
 		//Initialising the data structures
-		WordList nathansAwesomeDataStructure = new WordList();
+		WordListModel nathansAwesomeDataStructure = new WordListModel();
 		HashMap<String, List<Character>> levelHashMap = new HashMap<String, List<Character>>();
 
 		try {
@@ -260,7 +273,7 @@ public class WordList extends ArrayList<Level> {
 				if(line.length() > 0 && line.charAt(0) == '%') {
 
 					if(lastLineWasWord) {
-						Level level = new Level(levelName, levelHashMap);
+						LevelModel level = new LevelModel(levelName, levelHashMap);
 						level.unlockLevel();
 						nathansAwesomeDataStructure.add(level);
 					}
@@ -282,7 +295,7 @@ public class WordList extends ArrayList<Level> {
 
 			}
 			//Adding the last level in to the list
-			Level level = new Level(levelName, levelHashMap);
+			LevelModel level = new LevelModel(levelName, levelHashMap);
 			level.unlockLevel();
 			nathansAwesomeDataStructure.add(level);
 			
@@ -311,7 +324,7 @@ public class WordList extends ArrayList<Level> {
 	public int[] GetMedalCount() {
 		int[] medalCount = new int[3];
 
-		for (Level l : WordList.GetWordList()) {
+		for (LevelModel l : WordListModel.GetWordList()) {
 			switch (l.GetMedal()) {
 				case Bronze:
 					medalCount[0]++;
@@ -340,8 +353,8 @@ public class WordList extends ArrayList<Level> {
 	 * @param name - the level's name
 	 * @return a Level
 	 */
-	public Level getLevelFromName(String name) {
-		Level level = null;
+	public LevelModel getLevelFromName(String name) {
+		LevelModel level = null;
 		for(int i = 0; i < this.size(); i++) {
 			if((this.get(i).levelName()).equals(name)) {
 				level = this.get(i);

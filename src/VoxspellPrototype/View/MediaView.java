@@ -21,7 +21,7 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
-public class MediaScreen extends Parent {
+public class MediaView extends Parent {
 	
 	private final int BTN_HEIGHT = 50;
 	
@@ -38,7 +38,7 @@ public class MediaScreen extends Parent {
 	
 	private boolean _specialReward;
 	
-	public MediaScreen(Window window,  boolean specialReward) {	
+	public MediaView(Window window,  boolean specialReward) {	
 		
 		this._window = window;
 		this._specialReward = specialReward;
@@ -132,7 +132,7 @@ public class MediaScreen extends Parent {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+						_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 						_window.SetWindowPosition(frame.getX(), frame.getY());
 						_window.Show(true);
 					}

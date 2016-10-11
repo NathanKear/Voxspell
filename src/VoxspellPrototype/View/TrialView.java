@@ -7,8 +7,8 @@ import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
 import VoxspellPrototype.Concurrent.FFPlayTask;
 import VoxspellPrototype.Concurrent.FestivalSpeakTask;
-import VoxspellPrototype.Model.Level;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.LevelModel;
+import VoxspellPrototype.Model.WordListModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
-public class TrialScreen extends Parent {
+public class TrialView extends Parent {
 
 	private Window _window;
 
@@ -63,7 +63,7 @@ public class TrialScreen extends Parent {
 	private final Text _txtQuiz;
 	private TextField _tfdAttempt;
 	private String _levelName;
-	private Level _level;
+	private LevelModel _level;
 	private HBox _progressBar;
 	private ImageView[] _progressBarBlocks;
 
@@ -75,14 +75,14 @@ public class TrialScreen extends Parent {
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 	private boolean _firstTick = true;
 
-	public TrialScreen(Window window, String wordlistName) {
+	public TrialView(Window window, String wordlistName) {
 		this._window = window;
 		
 		_levelName = wordlistName;
-		_level = WordList.GetWordList().getLevelFromName(_levelName);
+		_level = WordListModel.GetWordList().getLevelFromName(_levelName);
 		_quizStart = System.currentTimeMillis();
 		
-		Level currentLevel =  WordList.GetWordList().getLevelFromName(wordlistName);
+		LevelModel currentLevel =  WordListModel.GetWordList().getLevelFromName(wordlistName);
 		_words = currentLevel.GetWordsNonBias(currentLevel.Size());
 		
 		// Create root pane and set its size to whole window
@@ -229,7 +229,7 @@ public class TrialScreen extends Parent {
 
 		boolean correct = (word.toLowerCase().equals(currentWord().toLowerCase()));
 		
-		WordList.GetWordList().AddWordStat(currentWord(), _levelName, correct);
+		WordListModel.GetWordList().AddWordStat(currentWord(), _levelName, correct);
 		_userAttempts.put(currentWord(), word);
 
 		if (correct) {
@@ -308,7 +308,7 @@ public class TrialScreen extends Parent {
 				
 				boolean isRecord = _level.SubmitCorrectResponses(_correctWords);
 				
-				_window.SetWindowScene(new Scene(new ResultsScreenTrial(_window, _correctWords, isRecord, _level), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new TrialResultsView(_window, _correctWords, isRecord, _level), _window.GetWidth(), _window.GetHeight()));
 			}
 		}	
 	};

@@ -13,7 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class HelpScreen extends Parent {
+public class HelpView extends Parent {
 
 	private Window _window;
 	
@@ -45,7 +45,8 @@ public class HelpScreen extends Parent {
 			+ "Stats: View your statistics for each level including the success rate for spelling each word and "
 			+ "the total attempts at spelling each word\n"
 			+ "\n"
-			+ "Add List: Import a new user defined collection of spelling lists to the game."
+			+ "Swap List: Import a different list and its associated stats and medals into memory."
+			+ "All stats and medals for the current list are saved."
 			+ "The file to load must be a .txt file."
 			+ "File must be formatted with list name on a new line starting with an '%', and words one to each line."
 			+ "Each list is terminated by the start of another list or end of file.\n"
@@ -74,7 +75,7 @@ public class HelpScreen extends Parent {
 			+ "		Clock tick from https://www.freesound.org/people/Jagadamba/sounds/254316/\n"
 			+ "";
 
-	public HelpScreen(Window window) {
+	public HelpView(Window window) {
 		this._window = window;
 		
 		ScrollPane scroll = new ScrollPane();
@@ -109,7 +110,7 @@ public class HelpScreen extends Parent {
 		returnToMenuBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 			
 		});

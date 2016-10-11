@@ -3,7 +3,7 @@ package VoxspellPrototype.View;
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
 import VoxspellPrototype.Concurrent.FFPlayTask;
-import VoxspellPrototype.Model.Level;
+import VoxspellPrototype.Model.LevelModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +22,7 @@ import javafx.scene.text.TextAlignment;
  * @author nathan
  *
  */
-public class ResultsScreenTrial extends Parent {
+public class TrialResultsView extends Parent {
 
 	private Window _window;
 
@@ -45,7 +45,7 @@ public class ResultsScreenTrial extends Parent {
 	private final Image MEDAL_SILVER = new Image(getClass().getResourceAsStream("/media/images/silverIcon.png"));
 	private final Image MEDAL_BRONZE = new Image(getClass().getResourceAsStream("/media/images/bronzeIcon.png"));
 
-	public ResultsScreenTrial(Window window, int correctWords, boolean isRecord, Level level) {
+	public TrialResultsView(Window window, int correctWords, boolean isRecord, LevelModel level) {
 		this._window = window;
 
 		// Create root pane and set its size to whole window
@@ -103,7 +103,7 @@ public class ResultsScreenTrial extends Parent {
 		btnReward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MediaScreen(_window, specialReward), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MediaView(_window, specialReward), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 
@@ -120,7 +120,7 @@ public class ResultsScreenTrial extends Parent {
 		btnReturn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 

@@ -7,8 +7,8 @@ import java.util.Map;
 
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
-import VoxspellPrototype.Model.Level;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.LevelModel;
+import VoxspellPrototype.Model.WordListModel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -33,7 +33,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-public class StatisticsScreen extends Parent {
+public class StatsView extends Parent {
 	
 	private Window _window;
 	
@@ -50,14 +50,14 @@ public class StatisticsScreen extends Parent {
 	private final Image MEDAL_SILVER = new Image(getClass().getResourceAsStream("/media/images/silverIcon.png"));
 	private final Image MEDAL_BRONZE = new Image(getClass().getResourceAsStream("/media/images/bronzeIcon.png"));
 	
-	public StatisticsScreen(Window window) {
+	public StatsView(Window window) {
 		
 		this._window = window;
 		
 		VBox root = new VBox();
 		
 		//Getting the WordList
-		WordList wordlist = WordList.GetWordList();
+		WordListModel wordlist = WordListModel.GetWordList();
 		
 		//Getting the number of tabs to create
 		int numOfTabs = wordlist.size();
@@ -109,7 +109,7 @@ public class StatisticsScreen extends Parent {
 		btnReturn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 		
@@ -124,12 +124,12 @@ public class StatisticsScreen extends Parent {
 		btnClear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				WordList.GetWordList().ClearStats();
-				_window.SetWindowScene(new Scene(new StatisticsScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				WordListModel.GetWordList().ClearStats();
+				_window.SetWindowScene(new Scene(new StatsView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 
-		int[] medalCount = WordList.GetWordList().GetMedalCount();
+		int[] medalCount = WordListModel.GetWordList().GetMedalCount();
 
 		Text bronzeCount = new Text("x" + Integer.toString(medalCount[0]) + "           ");
 		Text silverCount = new Text("x" + Integer.toString(medalCount[1]) + "           ");
@@ -173,7 +173,7 @@ public class StatisticsScreen extends Parent {
 	 * @param level - the Level containing the stats for its table
 	 * @param tab - the tab where the stats table is held
 	 */
-	private void populateStatsTable(final Level level, Tab tab) {
+	private void populateStatsTable(final LevelModel level, Tab tab) {
 	
 		//Getting the levels words and stats for each word
 		HashMap<String, List<Character>> levelHashMap = level.getMap();

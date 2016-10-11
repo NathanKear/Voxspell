@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class OptionsScreen extends Parent {
+public class OptionsView extends Parent {
 
 	private Window _window;
 	
@@ -37,7 +37,7 @@ public class OptionsScreen extends Parent {
 	private final int CMB_WIDTH = 400;
 	private final int CMB_HEIGHT = 40;
 
-	public OptionsScreen(Window window) {
+	public OptionsView(Window window) {
 		super();
 
 		_window = window;
@@ -78,7 +78,7 @@ public class OptionsScreen extends Parent {
 		returnToMenuBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 

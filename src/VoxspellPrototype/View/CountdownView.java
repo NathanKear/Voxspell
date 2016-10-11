@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
-public class CountdownScreen extends Parent {
+public class CountdownView extends Parent {
 
 	private Window _window;
 	
@@ -25,7 +25,7 @@ public class CountdownScreen extends Parent {
 	private int _count = 5;
 	private final String _wordlist;
 
-	public CountdownScreen(Window window, String wordlist) {
+	public CountdownView(Window window, String wordlist) {
 		super();
 
 		_window = window;
@@ -61,7 +61,7 @@ public class CountdownScreen extends Parent {
 			new FFPlayTask(VoxspellPrototype.TICK_SOURCE).run();
 			
 			if (_count <= 0) {
-				_window.SetWindowScene(new Scene(new TrialScreen(_window, _wordlist), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new TrialView(_window, _wordlist), _window.GetWidth(), _window.GetHeight()));
 				_timeline.stop();
 			}
 		}	

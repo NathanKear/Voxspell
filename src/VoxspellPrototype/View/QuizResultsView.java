@@ -5,7 +5,7 @@ import java.util.HashMap;
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
 import VoxspellPrototype.Concurrent.FFPlayTask;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.WordListModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +22,7 @@ import javafx.scene.text.TextAlignment;
  * @author nathan
  *
  */
-public class ResultsScreen extends Parent {
+public class QuizResultsView extends Parent {
 
 	private Window _window;
 
@@ -41,7 +41,7 @@ public class ResultsScreen extends Parent {
 	private final double BTNWIDTH_SCREENWIDTH_RATIO = 0.666;
 	private final int BTN_HEIGHT = 70;
 
-	public ResultsScreen(Window window, int correctWords, int wordListLength, String listName, HashMap<String, String> userAttempts) {
+	public QuizResultsView(Window window, int correctWords, int wordListLength, String listName, HashMap<String, String> userAttempts) {
 		this._window = window;
 
 		// Create root pane and set its size to whole window
@@ -75,7 +75,7 @@ public class ResultsScreen extends Parent {
 		btnReward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MediaScreen(_window, specialReward), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MediaView(_window, specialReward), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 
@@ -101,7 +101,7 @@ public class ResultsScreen extends Parent {
 		btnTestedWords.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new TestedWordsScreen(_window, attempts, words, length, name)));
+				_window.SetWindowScene(new Scene(new MistakeReviewView(_window, attempts, words, length, name)));
 			}
 		});
 
@@ -118,7 +118,7 @@ public class ResultsScreen extends Parent {
 		btnReturn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new MainScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new MainView(_window), _window.GetWidth(), _window.GetHeight()));
 			}
 		});
 
@@ -136,11 +136,11 @@ public class ResultsScreen extends Parent {
 			new FFPlayTask(VoxspellPrototype.CHEER_SOURCE).run();
 			
 			// Unlock reward and next level.
-			if (listName == WordList.GetWordList().HighestUnlockedLevel().levelName()) {
+			if (listName == WordListModel.GetWordList().HighestUnlockedLevel().levelName()) {
 				String level = "";
 
 				// Deploy popup to inform user of new quiz level.
-				if ((level = WordList.GetWordList().UnlockNextLevel()) != null) {
+				if ((level = WordListModel.GetWordList().UnlockNextLevel()) != null) {
 					if (level != null && !level.equals(""))
 						PopupWindow.DeployPopupWindow(level + " unlocked!");
 				}

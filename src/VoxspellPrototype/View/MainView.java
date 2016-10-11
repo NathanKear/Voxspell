@@ -5,7 +5,7 @@ import java.io.File;
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.Window;
 import VoxspellPrototype.Model.QuizType;
-import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.Model.WordListModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
-public class MainScreen extends Parent {
+public class MainView extends Parent {
 
 	private Window _window;
 		
@@ -32,7 +32,7 @@ public class MainScreen extends Parent {
 	private final String BTN_NEW_TEXT = "Quiz";
 	private final String BTN_TRIAL_TEXT = "Time-\nTrial";
 	private final String BTN_STATS_TEXT = "Stats";
-	private final String BTN_ADDLIST_TEXT = "Add\nList";
+	private final String BTN_ADDLIST_TEXT = "Swap\nList";
 	private final String BTN_HELP_TEXT = "?";
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
@@ -52,7 +52,7 @@ public class MainScreen extends Parent {
 	private final Image IMG_TRIAL = new Image(getClass().getResourceAsStream("/media/images/btnTrialIcon.png"));
 	
 	
-	public MainScreen(Window window) {
+	public MainView(Window window) {
 		super();
 		
 		this._window = window;
@@ -155,30 +155,35 @@ public class MainScreen extends Parent {
 		btnNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window, QuizType.Normal), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new LevelSelectionView(_window, QuizType.Normal), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
 		btnTrial.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new LevelSelectionScreen(_window, QuizType.Trial), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new LevelSelectionView(_window, QuizType.Trial), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
 		btnStats.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new StatisticsScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new StatsView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
 		btnAddList.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				//PopupWindow.DeployPopupWindow("Cleared Statistics");
-				//WordList.GetWordList().ClearStats();
 				FileChooser chooser = new FileChooser();
+				
+				File wordlistDir = new File("WordLists");
+				
+				if (wordlistDir.exists()) {
+					chooser.setInitialDirectory(wordlistDir);
+				}
+				
 				chooser.setTitle("Select a new list to add");
 				chooser.getExtensionFilters().addAll(
 						new FileChooser.ExtensionFilter(".txt", "*.txt"),
@@ -186,8 +191,8 @@ public class MainScreen extends Parent {
 				File file = chooser.showOpenDialog(_window.GetWindowStage());
 				
 				if (file != null) {
-					WordList.SetWordFile(file.getPath());
-					WordList.GetWordList().ReloadWordList();
+					WordListModel.SetWordFile(file.getPath());
+					WordListModel.GetWordList().ReloadWordList();
 				}
 			}	
 		});
@@ -204,14 +209,14 @@ public class MainScreen extends Parent {
 		btnHelp.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new HelpScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new HelpView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
 		btnOptions.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new OptionsScreen(_window), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new OptionsView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
 		
