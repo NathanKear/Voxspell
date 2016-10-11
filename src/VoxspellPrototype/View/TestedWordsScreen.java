@@ -1,8 +1,10 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -92,7 +94,6 @@ public class TestedWordsScreen extends Parent {
 		ObservableList<Map.Entry<String, String>> data = FXCollections.observableArrayList(attempts.entrySet());
 		final TableView<Map.Entry<String,String>> resultsTable = new TableView<>(data);
 
-		resultsTable.getColumns().addAll(wordsCol, attemptsCol);
 		resultsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		resultsTable.setStyle("-fx-base: " + BACK_COLOR);
 		resultsTable.setMinHeight(_window.GetHeight());

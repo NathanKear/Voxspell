@@ -1,4 +1,4 @@
-package VoxspellPrototype;
+package VoxspellPrototype.Model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,13 +7,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.View.PopupWindow;
+
+@SuppressWarnings("serial")
 public class WordList extends ArrayList<Level> {
 
 	private static WordList _instance = null;
@@ -220,6 +222,8 @@ public class WordList extends ArrayList<Level> {
 						}					
 					}
 				}
+							
+				statsReader.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -339,8 +343,7 @@ public class WordList extends ArrayList<Level> {
 	public Level getLevelFromName(String name) {
 		Level level = null;
 		for(int i = 0; i < this.size(); i++) {
-			String levelName;
-			if((levelName  = this.get(i).levelName()).equals(name)) {
+			if((this.get(i).levelName()).equals(name)) {
 				level = this.get(i);
 			}
 		}

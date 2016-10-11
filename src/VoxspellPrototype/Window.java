@@ -2,7 +2,6 @@ package VoxspellPrototype;
 
 import java.awt.Rectangle;
 
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

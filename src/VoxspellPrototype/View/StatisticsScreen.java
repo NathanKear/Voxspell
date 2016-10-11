@@ -1,13 +1,15 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
+import VoxspellPrototype.Model.Level;
+import VoxspellPrototype.Model.WordList;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -42,7 +44,6 @@ public class StatisticsScreen extends Parent {
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final int BTN_HEIGHT = 70;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 
 	private final Image MEDAL_GOLD = new Image(getClass().getResourceAsStream("/media/images/goldIcon.png"));

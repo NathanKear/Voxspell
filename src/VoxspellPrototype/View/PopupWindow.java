@@ -1,5 +1,6 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
+import VoxspellPrototype.VoxspellPrototype;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;

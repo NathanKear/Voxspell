@@ -1,12 +1,14 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
+import VoxspellPrototype.Concurrent.FFPlayTask;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -18,7 +20,6 @@ public class CountdownScreen extends Parent {
 	
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final Text _txtCountDown;
 	private final Timeline _timeline;
 	private int _count = 5;

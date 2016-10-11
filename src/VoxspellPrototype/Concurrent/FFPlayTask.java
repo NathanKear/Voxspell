@@ -1,4 +1,4 @@
-package VoxspellPrototype;
+package VoxspellPrototype.Concurrent;
 
 import javafx.concurrent.Task;
 
@@ -7,7 +7,7 @@ import javafx.concurrent.Task;
  * @author nathan
  *
  */
-class FFPlayTask extends Task<Void> {
+public class FFPlayTask extends Task<Void> {
 
 	private String _fileName;
 

@@ -1,8 +1,11 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
 import java.io.File;
 
-import javafx.application.Platform;
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
+import VoxspellPrototype.Model.QuizType;
+import VoxspellPrototype.Model.WordList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -34,7 +37,6 @@ public class MainScreen extends Parent {
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_LRG_WIDTH = 250;
 	private final int BTN_LRG_HEIGHT = 250;
 	private final int BTN_SML_WIDTH = 75;
@@ -44,7 +46,6 @@ public class MainScreen extends Parent {
 	private final int GRD_VGAP = 30;
 	
 	private final Image IMG_NEW = new Image(getClass().getResourceAsStream("/media/images/btnNewIcon.png"));
-	private final Image IMG_EXIT = new Image(getClass().getResourceAsStream("/media/images/btnExitIcon50x50.png"));
 	private final Image IMG_OPTIONS = new Image(getClass().getResourceAsStream("/media/images/btnOptionsIcon50x50.png"));
 	private final Image IMG_ADDLIST = new Image(getClass().getResourceAsStream("/media/images/btnImportQuiz.png"));
 	private final Image IMG_STATS = new Image(getClass().getResourceAsStream("/media/images/btnStatsIcon.png"));
@@ -77,10 +78,9 @@ public class MainScreen extends Parent {
 		// Add menu bar and text to root node
 		root.add(welcomeText, 1, 1, 3, 1);
 		
-		Button btnNew, btnTrial, btnStats, btnAddList, btnQuit, btnOptions, btnHelp;
+		Button btnNew, btnTrial, btnStats, btnAddList, btnOptions, btnHelp;
 		
 		ImageView imgOptions = new ImageView(IMG_OPTIONS);
-		ImageView imgQuit = new ImageView(IMG_EXIT);
 		
 		imgOptions.setFitHeight(45);
 		imgOptions.setFitWidth(45);
@@ -186,7 +186,7 @@ public class MainScreen extends Parent {
 				File file = chooser.showOpenDialog(_window.GetWindowStage());
 				
 				if (file != null) {
-					WordList.GetWordList().SetWordFile(file.getPath());
+					WordList.SetWordFile(file.getPath());
 					WordList.GetWordList().ReloadWordList();
 				}
 			}	

@@ -1,4 +1,4 @@
-package VoxspellPrototype;
+package VoxspellPrototype.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +11,7 @@ public class Level {
 	private final int _silverThreshold = 14;
 	private final int _bronzeThreshold = 10;
 	
-	enum Medal {
+	public enum Medal {
 		None,
 		Bronze,
 		Silver,
@@ -19,7 +19,6 @@ public class Level {
 	}
 
 	private int _record;
-	private Medal _medal;
 	private boolean _isUnlocked = false;
 	private HashMap<String, List<Character>> _levelMap;
 	private String _levelName;
@@ -33,7 +32,6 @@ public class Level {
 	public Level(String levelName, HashMap<String, List<Character>> levelMap) {
 		_levelName = levelName;
 		_levelMap = levelMap;
-		_medal = Medal.None;
 	}
 
 	/**

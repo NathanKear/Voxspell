@@ -1,5 +1,7 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,7 +23,6 @@ public class HelpScreen extends Parent {
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
 	private final int BTN_HEIGHT = 70;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
-	private final String TXT_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE_FINE;
 	private final Insets INSETS = new Insets(20, 20, 20, 20);
 	private final Insets TXT_INSETS = new Insets(20, 20, 20, 20);

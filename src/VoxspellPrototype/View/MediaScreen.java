@@ -1,4 +1,4 @@
-package VoxspellPrototype;
+package VoxspellPrototype.View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import VoxspellPrototype.VoxspellPrototype;
+import VoxspellPrototype.Window;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -1,5 +1,7 @@
 package VoxspellPrototype;
 
+import VoxspellPrototype.Model.WordList;
+import VoxspellPrototype.View.MainScreen;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -10,8 +12,8 @@ import javafx.stage.WindowEvent;
 public class VoxspellPrototype extends Application {
 
 	// Global constants (naughty public static!!)
-	public static final String BACK_COLOR = "#fffad6";//"#96ceb4";
-	public static final String BUTTON_COLOR = "#62bdd6";//"#ff6f69";
+	public static final String BACK_COLOR = "#fffad6";
+	public static final String BUTTON_COLOR = "#62bdd6";
 	public static final String LIGHT_COLOR = "#E9E9E9";
 	public static final String MIDDLE_COLOR = "#BCBCBC";
 	public static final String DARK_COLOR = "#424242";

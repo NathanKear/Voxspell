@@ -1,3 +1,5 @@
+nkea150
+
 Open terminal in current directory
 
 To compile the program:
