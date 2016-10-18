@@ -36,7 +36,3 @@ Apartment
 Flat
 Suburb
 Tower
-
-
-
-

@@ -191,17 +191,10 @@ public class QuizView extends Parent {
 			return false;
 		}
 
-		if (word.contains(" ")) {
-			// Word attempt may not contain white space
-			_txtQuiz.setText(_level + "\nMay not contain spaces"); 
-
-			return false;
-		}
-
-		if (!word.matches("[a-zA-Z]+")) {
+		if (!word.matches("[ 'a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText(_level + "\nMay only contain letters"); 
+			_txtQuiz.setText(_level + "\nMay only contain letters and apostrophe"); 
 
 			return false;
 		}
@@ -245,7 +238,7 @@ public class QuizView extends Parent {
 			
 			return true;
 		} else {
-			_window.SetWindowScene(new Scene(new QuizResultsView(_window, _masteredWords, _words.size(), _level, _userAttempts), _window.GetWidth(), _window.GetHeight()));
+			_window.SetWindowScene(new Scene(new QuizResultsView(_window, _masteredWords, _words.size(), _level, _userAttempts, false), _window.GetWidth(), _window.GetHeight()));
 
 			return false;
 		}

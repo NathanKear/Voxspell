@@ -31,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class StatsView extends Parent {
@@ -98,7 +99,7 @@ public class StatsView extends Parent {
 		buttonRow.setPrefWidth(_window.GetWidth());
 		buttonRow.setPadding(new Insets(10, 10, 10, 10));
 		
-		Button btnReturn;
+		final Button btnReturn;
 		btnReturn = new Button(BTN_RETURN_TEXT);
 		btnReturn.setPrefWidth((_window.GetWidth() - 30) / 2);
 		btnReturn.setPrefHeight(BTN_HEIGHT);
@@ -113,7 +114,7 @@ public class StatsView extends Parent {
 			}
 		});
 		
-		Button btnClear;
+		final Button btnClear;
 		btnClear = new Button(BTN_CLEAR_TEXT);
 		btnClear.setPrefWidth((_window.GetWidth() - 30) / 2);
 		btnClear.setPrefHeight(BTN_HEIGHT);
@@ -124,8 +125,26 @@ public class StatsView extends Parent {
 		btnClear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				WordListModel.GetWordList().ClearStats();
-				_window.SetWindowScene(new Scene(new StatsView(_window), _window.GetWidth(), _window.GetHeight()));
+				
+				btnClear.setDisable(true);
+				btnReturn.setDisable(true);
+				
+				PopupWindow.DeployConfirmationWindow("Are you sure you wan't to clear your stats?", 
+						new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent arg0) {
+								WordListModel.GetWordList().ClearStats();
+								_window.SetWindowScene(new Scene(new StatsView(_window), _window.GetWidth(), _window.GetHeight()));
+								btnClear.setDisable(false);
+								btnReturn.setDisable(false);
+							}
+					}, new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent arg0) {
+								btnClear.setDisable(false);
+								btnReturn.setDisable(false);
+							}	
+				});
 			}
 		});
 

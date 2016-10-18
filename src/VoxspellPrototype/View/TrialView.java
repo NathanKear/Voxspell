@@ -211,17 +211,10 @@ public class TrialView extends Parent {
 			return false;
 		}
 
-		if (word.contains(" ")) {
-			// Word attempt may not contain white space
-			_txtQuiz.setText(_levelName + "\nMay not contain spaces"); 
-
-			return false;
-		}
-
-		if (!word.matches("[a-zA-Z]+")) {
+		if (!word.matches("[ 'a-zA-Z]+")) {
 			// Word attempt may only contain alphabet characters.
 
-			_txtQuiz.setText(_levelName + "\nMay only contain letters"); 
+			_txtQuiz.setText(_levelName + "\nMay only contain letters and apostrophe"); 
 
 			return false;
 		}

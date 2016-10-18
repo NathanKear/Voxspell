@@ -68,7 +68,7 @@ public class MistakeReviewView extends Parent {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				_window.SetWindowScene(new Scene(new QuizResultsView(_window, mastered, size, levelName, userAttempts), _window.GetWidth(), _window.GetHeight()));
+				_window.SetWindowScene(new Scene(new QuizResultsView(_window, mastered, size, levelName, userAttempts, true), _window.GetWidth(), _window.GetHeight()));
 			}
 			
 		});

@@ -41,7 +41,7 @@ public class QuizResultsView extends Parent {
 	private final double BTNWIDTH_SCREENWIDTH_RATIO = 0.666;
 	private final int BTN_HEIGHT = 70;
 
-	public QuizResultsView(Window window, int correctWords, int wordListLength, String listName, HashMap<String, String> userAttempts) {
+	public QuizResultsView(Window window, int correctWords, int wordListLength, String listName, HashMap<String, String> userAttempts, boolean mute) {
 		this._window = window;
 
 		// Create root pane and set its size to whole window
@@ -133,7 +133,9 @@ public class QuizResultsView extends Parent {
 			btnReward.setDisable(true);	
 		} else {
 			
-			new FFPlayTask(VoxspellPrototype.CHEER_SOURCE).run();
+			if (!mute) {
+				new FFPlayTask(VoxspellPrototype.CHEER_SOURCE).run();
+			}
 			
 			// Unlock reward and next level.
 			if (listName == WordListModel.GetWordList().HighestUnlockedLevel().levelName()) {

@@ -38,6 +38,8 @@ public class MediaView extends Parent {
 	
 	private boolean _specialReward;
 	
+	//private boolean _pauseVideo = false;
+	
 	public MediaView(Window window,  boolean specialReward) {	
 		
 		this._window = window;
@@ -116,9 +118,11 @@ public class MediaView extends Parent {
 				if (_mediaPlayer.isPlaying()) {
 					_mediaPlayer.pause();
 					btnPause.setText("Play");
+					btnSpookify.setEnabled(false);
 				} else {
 					_mediaPlayer.play();
 					btnPause.setText("Pause");
+					btnSpookify.setEnabled(true);
 				}
 			}	
     	});
@@ -183,6 +187,7 @@ public class MediaView extends Parent {
 				// to where old media was.
 				long time = _mediaPlayer.getTime();
 				boolean isMute = _mediaPlayer.mute();
+
 				if (_currentMedia == "media/bunny.mp4") {
 					_mediaPlayer.playMedia(_currentMedia = "media/spooky.mp4");
 					btnSpookify.setText("Too spooky!");
@@ -191,6 +196,7 @@ public class MediaView extends Parent {
 					_mediaPlayer.playMedia(_currentMedia = "media/bunny.mp4");
 					btnSpookify.setText("Spookify");
 				}
+				
 				_mediaPlayer.mute(isMute);
 				_mediaPlayer.setTime(time);
 			}	
