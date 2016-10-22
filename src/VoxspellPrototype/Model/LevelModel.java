@@ -115,6 +115,23 @@ public class LevelModel {
 		return count;
 	}
 	
+	public String GetStatSuccessRateFormattedOverall() {
+		int successes = 0;
+		int totalAttempts = 0;
+		
+		for (String word : _levelMap.keySet()) {
+			successes += GetStatCount(word, true, 5);
+			totalAttempts += GetAttemptCount(word);
+		}
+		
+		if (totalAttempts == 0)
+			return "-";
+		
+		double rate = (double)successes / totalAttempts;
+		rate *= 100.0;
+		return String.format("%.1f", rate) + "%";
+	}
+	
 	public int GetAttemptCount(String word) {
 		return _levelMap.get(word).size();
 	}

@@ -39,7 +39,7 @@ public class StatsView extends Parent {
 	private Window _window;
 	
 	private final String BTN_RETURN_TEXT = "Return";
-	private final String BTN_CLEAR_TEXT = "Clear";
+	private final String BTN_CLEAR_TEXT = "Clear All";
 	private final String BTN_COLOR = VoxspellPrototype.BUTTON_COLOR;
 	private final String BTN_FONT_COLOR = VoxspellPrototype.LIGHT_COLOR;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
@@ -50,6 +50,7 @@ public class StatsView extends Parent {
 	private final Image MEDAL_GOLD = new Image(getClass().getResourceAsStream("/media/images/goldIcon.png"));
 	private final Image MEDAL_SILVER = new Image(getClass().getResourceAsStream("/media/images/silverIcon.png"));
 	private final Image MEDAL_BRONZE = new Image(getClass().getResourceAsStream("/media/images/bronzeIcon.png"));
+	private final Image MEDAL_NONE = new Image(getClass().getResourceAsStream("/media/images/noMedalIcon.png"));
 	
 	public StatsView(Window window) {
 		
@@ -150,32 +151,32 @@ public class StatsView extends Parent {
 
 		int[] medalCount = WordListModel.GetWordList().GetMedalCount();
 
-		Text bronzeCount = new Text("x" + Integer.toString(medalCount[0]) + "           ");
-		Text silverCount = new Text("x" + Integer.toString(medalCount[1]) + "           ");
-		Text goldCount = new Text("x" + Integer.toString(medalCount[2]));
-
-		bronzeCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-		silverCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-		goldCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-
-		ImageView bronzeMedal = new ImageView(MEDAL_BRONZE);
-		ImageView silverMedal = new ImageView(MEDAL_SILVER);
-		ImageView goldMedal = new ImageView(MEDAL_GOLD);
-
-		bronzeMedal.setFitWidth(50); bronzeMedal.setFitHeight(50);
-		silverMedal.setFitWidth(50); silverMedal.setFitHeight(50);
-		goldMedal.setFitWidth(50); goldMedal.setFitHeight(50);
-
-		medalRow.setAlignment(Pos.BASELINE_CENTER);
-
-		medalRow.getChildren().addAll(bronzeMedal, bronzeCount, silverMedal, silverCount, goldMedal, goldCount);
-		
+//		Text bronzeCount = new Text("x" + Integer.toString(medalCount[0]) + "           ");
+//		Text silverCount = new Text("x" + Integer.toString(medalCount[1]) + "           ");
+//		Text goldCount = new Text("x" + Integer.toString(medalCount[2]));
+//
+//		bronzeCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
+//		silverCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
+//		goldCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
+//
+//		ImageView bronzeMedal = new ImageView(MEDAL_BRONZE);
+//		ImageView silverMedal = new ImageView(MEDAL_SILVER);
+//		ImageView goldMedal = new ImageView(MEDAL_GOLD);
+//
+//		bronzeMedal.setFitWidth(50); bronzeMedal.setFitHeight(50);
+//		silverMedal.setFitWidth(50); silverMedal.setFitHeight(50);
+//		goldMedal.setFitWidth(50); goldMedal.setFitHeight(50);
+//
+//		medalRow.setAlignment(Pos.BASELINE_CENTER);
+//
+//		medalRow.getChildren().addAll(bronzeMedal, bronzeCount, silverMedal, silverCount, goldMedal, goldCount);
+//		
 		buttonRow.getChildren().addAll(btnReturn, btnClear);
 		
-		root.getChildren().addAll(buttonRow, medalRow, statsTabPane);
+		root.getChildren().addAll(buttonRow,/* medalRow,*/ statsTabPane);
 		
 		//Adding the statspane
 		this.getChildren().add(root);
@@ -238,8 +239,45 @@ public class StatsView extends Parent {
 		table.getColumns().setAll(statsWordCol, totalAttempts, successRate);
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
+		ImageView levelMedal;
+		
+		switch (level.GetMedal()) {
+		case Bronze:
+			levelMedal = new ImageView(MEDAL_BRONZE);
+			break;
+		case Gold:
+			levelMedal = new ImageView(MEDAL_GOLD);
+			break;
+		case None:
+			levelMedal = new ImageView(MEDAL_NONE);
+			break;
+		case Silver:
+			levelMedal = new ImageView(MEDAL_SILVER);
+			break;
+		default:
+			levelMedal = new ImageView(MEDAL_NONE);
+			break;
+		}
+		
+		levelMedal.setFitWidth(50);
+		levelMedal.setFitHeight(50);
+		
+		String totalPercent = level.GetStatSuccessRateFormattedOverall();
+		
+		Text statsText = new Text(totalPercent);
+		statsText.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
+				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
+		
+		HBox hbox = new HBox(40);
+		hbox.getChildren().addAll(levelMedal, statsText);
+		hbox.setPrefWidth(_window.GetWidth());
+		hbox.setAlignment(Pos.CENTER);
+		
+		VBox vbox = new VBox(10);
+		vbox.getChildren().addAll(hbox, table);
 
-		tab.setContent(table);
+		tab.setContent(vbox);
 
 	}
 

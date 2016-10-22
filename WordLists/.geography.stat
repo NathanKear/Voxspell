@@ -4,6 +4,7 @@ Countries#Wales
 Countries#Sudan
 Countries#England
 Countries#Malaysia
+Countries#South Korea
 Countries#Mozambique
 Countries#Iran
 Countries#Morocco
@@ -22,16 +23,19 @@ Countries#India
 Countries#Canada
 Countries#Turkey
 Countries#Italy
+Countries#South Africa
 Countries#Peru
 Countries#Ethiopia
 Countries#Germany
 Countries#Yemen
 Countries#Afghanistan
+Countries#United States
 Countries#Egypt
 Countries#Scotland
 Countries#Madagascar
 Countries#Thailand
 Countries#Russia
+Countries#Saudi Arabia
 Countries#Vietnam
 Countries#Pakistan
 Countries#China
@@ -46,88 +50,130 @@ Countries#Kenya
 Countries#Spain
 Countries#Venezuela
 Countries#Bangladesh
+Countries#Mexico
 Countries#Uganda
 Countries#Australia
 Countries#Indonesia
 Small Countries#Benin
-Small Countries#Haiti
 Small Countries#Cameroon
-Small Countries#Burundi
+Small Countries#Papua New Guinea
 Small Countries#Cambodia
-Small Countries#Guinea
 Small Countries#Sudan
-Small Countries#Chad
-Small Countries#Somalia
-Small Countries#Kazakhstan
-Small Countries#Bolivia
+Small Countries#Kazakhstan#p
+Small Countries#Paraguay#p
 Small Countries#Portugal
 Small Countries#Syria
+Small Countries#Oman
 Small Countries#Greece
-Small Countries#Netherlands
+Small Countries#Austria
+Small Countries#El Salvador#pp
 Small Countries#Mali
-Small Countries#Malawi
 Small Countries#Guatemala
 Small Countries#Chile
-Small Countries#Tunisia
+Small Countries#Laos
 Small Countries#Ecuador
-Small Countries#Romania
-Small Countries#Niger
-Small Countries#Rwanda
+Small Countries#South Sudan
+Small Countries#Hungary
 Small Countries#Zambia
-Small Countries#Cuba
+Small Countries#Belarus
+Small Countries#New Zealand
 Small Countries#Belgium
 Small Countries#Senegal
 Small Countries#Taiwan
+Small Countries#Finland
+Small Countries#Honduras
+Small Countries#Turkmenistan
+Small Countries#Haiti
+Small Countries#Burundi
+Small Countries#Eritrea
+Small Countries#Singapore
+Small Countries#Hong Kong
+Small Countries#Guinea#p
+Small Countries#Chad
+Small Countries#Somalia
+Small Countries#Sierra Leone
+Small Countries#Bolivia#p
+Small Countries#Libya#f
+Small Countries#Costa Rica#p
+Small Countries#Netherlands
+Small Countries#Sweden
+Small Countries#Malawi#pp
+Small Countries#Ireland#p
+Small Countries#Slovakia
+Small Countries#Serbia#p
+Small Countries#Jordan#p
+Small Countries#Bulgaria
+Small Countries#Tunisia
+Small Countries#Kyrgyzstan
+Small Countries#Romania
+Small Countries#Sri Lanka
+Small Countries#Niger
+Small Countries#Rwanda
+Small Countries#United Arab Emirates
+Small Countries#Switzerland
+Small Countries#Palestine#f
+Small Countries#Lebanon
+Small Countries#Cuba
+Small Countries#Azerbaijan
+Small Countries#Liberia#p
+Small Countries#Czech Republic#f
+Small Countries#Burkina Faso
+Small Countries#Nicaragua
+Small Countries#Norway
+Small Countries#Dominican Republic
+Small Countries#Denmark#p
 Small Countries#Zimbabwe
+Small Countries#Israel
+Small Countries#Tajikistan
 Capital Cities#Belgrade
-Capital Cities#Brasilia
+Capital Cities#Brasilia#pf
 Capital Cities#Dublin
 Capital Cities#Kabul
-Capital Cities#Ashgabat
-Capital Cities#Rome
-Capital Cities#Nairobi
-Capital Cities#Zagreb
-Capital Cities#Tokyo
-Capital Cities#Kathmandu
-Capital Cities#Ottawa
-Capital Cities#Sarajevo
+Capital Cities#Ashgabat#fp
+Capital Cities#Rome#p
+Capital Cities#Nairobi#f
+Capital Cities#Zagreb#p
+Capital Cities#Tokyo#p
+Capital Cities#Kathmandu#pp
+Capital Cities#Ottawa#ppp
+Capital Cities#Sarajevo#p
 Capital Cities#Wellington
-Capital Cities#Brussels
-Capital Cities#Oslo
-Capital Cities#Berlin
-Capital Cities#Jerusalem
-Capital Cities#Lisbon
-Capital Cities#Hanoi
-Capital Cities#Bogota
-Capital Cities#Stockholm
+Capital Cities#Brussels#p
+Capital Cities#Oslo#p
+Capital Cities#Berlin#pp
+Capital Cities#Jerusalem#p
+Capital Cities#Lisbon#pp
+Capital Cities#Hanoi#p
+Capital Cities#Bogota#p
+Capital Cities#Stockholm#pp
 Capital Cities#Prague
 Capital Cities#Beijing
-Capital Cities#Budapest
-Capital Cities#Bangkok
-Capital Cities#Santiago
+Capital Cities#Budapest#p
+Capital Cities#Bangkok#f
+Capital Cities#Santiago#pp
 Capital Cities#Madrid
-Capital Cities#London
-Capital Cities#Canberra
-Capital Cities#Dhaka
-Capital Cities#Bern
+Capital Cities#London#p
+Capital Cities#Canberra#p
+Capital Cities#Dhaka#f
+Capital Cities#Bern#p
 Capital Cities#Singapore
 Capital Cities#Algiers
-Capital Cities#Sofia
-Capital Cities#Taipei
-Capital Cities#Manila
-Capital Cities#Moscow
-Capital Cities#Washington
-Capital Cities#Seoul
+Capital Cities#Sofia#pp
+Capital Cities#Taipei#pfp
+Capital Cities#Manila#pp
+Capital Cities#Moscow#p
+Capital Cities#Washington#f
+Capital Cities#Seoul#pp
 Capital Cities#Amsterdam
-Capital Cities#Lima
-Capital Cities#Vienna
+Capital Cities#Lima#p
+Capital Cities#Vienna#f
 Capital Cities#Montevideo
-Capital Cities#Tehran
-Capital Cities#Minsk
-Capital Cities#Cairo
-Capital Cities#Jakarta
-Capital Cities#Ankara
+Capital Cities#Tehran#p
+Capital Cities#Minsk#p
+Capital Cities#Cairo#ppp
+Capital Cities#Jakarta#pp
+Capital Cities#Ankara#pp
 Capital Cities#Paris
 !#Countries#unlocked#0
-!#Small Countries#unlocked#0
-!#Capital Cities#unlocked#0
+!#Small Countries#unlocked#10
+!#Capital Cities#unlocked#17

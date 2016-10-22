@@ -1,13 +1,14 @@
 %Countries
 China
 India
-America
+United States
 Indonesia
 Brazil
 Pakistan
 Nigeria
 Bangladesh
 Russia
+Mexico
 Japan
 Philippenes
 Ethiopia
@@ -25,7 +26,9 @@ Ireland
 France
 Italy
 Tanzania
+South Africa
 Myanmar
+South Korea
 Colombia
 Kenya
 Spain
@@ -39,6 +42,7 @@ Iraq
 Canada
 Morocco
 Afghanistan
+Saudi Arabia
 Peru
 Venezuela
 Malaysia
@@ -53,8 +57,10 @@ Australia
 %Small Countries
 Cameroon
 Taiwan
+Sri Lanka
 Niger
 Romania
+Burkina Faso
 Mali
 Chile
 Syria
@@ -69,7 +75,7 @@ Cambodia
 Senegal
 Chad
 Guinea
-Sudan
+South Sudan
 Rwanda
 Burundi
 Cuba
@@ -80,7 +86,45 @@ Somalia
 Greece
 Bolivia
 Haiti
+Dominican Republic
+Czech Republic
 Portugal
+Azerbaijan
+Sweden
+Hungary
+Belarus
+United Arab Emirates
+Serbia
+Tajikistan
+Austria
+Switzerland
+Israel
+Honduras
+Papua New Guinea
+Jordan
+Hong Kong
+Bulgaria
+Laos
+Paraguay
+Sierra Leone
+Libya
+Nicaragua
+El Salvador
+Kyrgyzstan
+Lebanon
+Singapore
+Denmark
+Finland
+Turkmenistan
+Slovakia
+Eritrea
+Norway
+Costa Rica
+Palestine
+Ireland
+Oman
+Liberia
+New Zealand
 %Capital Cities
 Kabul
 Algiers
