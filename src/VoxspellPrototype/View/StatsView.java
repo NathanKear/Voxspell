@@ -150,30 +150,7 @@ public class StatsView extends Parent {
 		});
 
 		int[] medalCount = WordListModel.GetWordList().GetMedalCount();
-
-//		Text bronzeCount = new Text("x" + Integer.toString(medalCount[0]) + "           ");
-//		Text silverCount = new Text("x" + Integer.toString(medalCount[1]) + "           ");
-//		Text goldCount = new Text("x" + Integer.toString(medalCount[2]));
-//
-//		bronzeCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-//		silverCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-//		goldCount.setStyle("-fx-font: " + TXT_FONT_SIZE + " arial;" +
-//				" -fx-fill: " + VoxspellPrototype.DARK_COLOR + ";");
-//
-//		ImageView bronzeMedal = new ImageView(MEDAL_BRONZE);
-//		ImageView silverMedal = new ImageView(MEDAL_SILVER);
-//		ImageView goldMedal = new ImageView(MEDAL_GOLD);
-//
-//		bronzeMedal.setFitWidth(50); bronzeMedal.setFitHeight(50);
-//		silverMedal.setFitWidth(50); silverMedal.setFitHeight(50);
-//		goldMedal.setFitWidth(50); goldMedal.setFitHeight(50);
-//
-//		medalRow.setAlignment(Pos.BASELINE_CENTER);
-//
-//		medalRow.getChildren().addAll(bronzeMedal, bronzeCount, silverMedal, silverCount, goldMedal, goldCount);
-//		
+	
 		buttonRow.getChildren().addAll(btnReturn, btnClear);
 		
 		root.getChildren().addAll(buttonRow,/* medalRow,*/ statsTabPane);

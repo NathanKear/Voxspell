@@ -35,6 +35,11 @@ import javafx.scene.text.Text;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class LevelSelectionView extends Parent {
 
 	private Window _window;
@@ -68,6 +73,11 @@ public class LevelSelectionView extends Parent {
 	private double _scrollPosition = 0;
 	private Timeline _timeline;
 
+	/**
+	 * Create level selection screen window for the user to choose a level to play
+	 * @param window
+	 * @param quizType
+	 */
 	public LevelSelectionView(Window window, QuizType quizType) {
 		super();
 
@@ -250,7 +260,6 @@ public class LevelSelectionView extends Parent {
 			
 			}
 
-			//img.setTranslateX(100);
 			final Button btn = new Button("   " + listName, img);
 			btn.setAlignment(Pos.BASELINE_LEFT);
 			btn.setPrefWidth(BTN_WIDTH);
@@ -293,49 +302,7 @@ public class LevelSelectionView extends Parent {
 					}
 				});
 			}
-//			
-//			if(_quizType == QuizType.NORMAL_QUIZ) {
-//				
-//			} else if(_quizType == QuizType.REVIEW_QUIZ) {
-//				//If the level is unlocked then create a normal button for it showing number of failed words
-//				if(level.isUnlocked()) {
-//					btn.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
-//							" -fx-base: " + BTN_COLOR + ";" + 
-//							" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-//
-//					//If there are no words to review then let the user know this if they click on the level
-//					if(WordList.GetWordList().GetRandomFailedWords(listName, 10).size() == 0) {
-//						btn.setOnAction(new EventHandler<ActionEvent>() {
-//							@Override
-//							public void handle(ActionEvent arg0) {
-//								PopupWindow.DeployPopupWindow("You currently have no words to review!");
-//							}
-//						});
-//					
-//					//Else let the button have full functionality for a review quiz
-//					} else {
-//						btn.setOnAction(new EventHandler<ActionEvent>() {
-//							@Override
-//							public void handle(ActionEvent arg0) {
-//								_window.SetWindowScene(new Scene(new QuizScreen(_window, listName, _quizType), _window.GetWidth(), _window.GetHeight()));
-//							}
-//						});
-//					}
-//					
-//				//Else the level is not unlocked so grey it out and let the user know it is locked if they click on it
-//				} else {
-//					btn.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
-//							" -fx-base: " + BTN_LOCKED_COLOR + ";" + 
-//							" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-//
-//					btn.setOnAction(new EventHandler<ActionEvent>() {
-//						@Override
-//						public void handle(ActionEvent arg0) {
-//							PopupWindow.DeployPopupWindow("You need to unlock this level before you can use play it!");
-//						}
-//					});
-//				}
-//			}
+			
 			_btnLevels.add(btn);
 		}
 

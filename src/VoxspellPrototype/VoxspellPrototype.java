@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * 
+ * @author nathan kear
+ *
+ */
 public class VoxspellPrototype extends Application {
 
 	// Global constants (naughty public static!!)
@@ -38,6 +43,9 @@ public class VoxspellPrototype extends Application {
 	}
 
 	@Override
+	/**
+	 * Start running Voxspell
+	 */
 	public void start(Stage stage) throws Exception {
 		Platform.setImplicitExit(false);
 		

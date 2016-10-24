@@ -30,6 +30,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author nathan kear
+ *
+ */
 public class TrialView extends Parent {
 
 	private Window _window;
@@ -74,7 +79,12 @@ public class TrialView extends Parent {
 	private int _correctWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 	private boolean _firstTick = true;
-
+	
+	/**
+	 * Create new trial screen view to tes tthe user
+	 * @param window
+	 * @param wordlistName
+	 */
 	public TrialView(Window window, String wordlistName) {
 		this._window = window;
 		
@@ -271,10 +281,18 @@ public class TrialView extends Parent {
 		}
 	}
 
+	/**
+	 * Get current word the user has to spell
+	 * @return
+	 */
 	private String currentWord() {
 		return _words.get(_wordIndex);
 	}
 	
+	/**
+	 * Set time in text box
+	 * @param milliseconds
+	 */
 	private void SetTimeText(long milliseconds) {
 		
 		long seconds = milliseconds / 1000;
@@ -283,6 +301,9 @@ public class TrialView extends Parent {
 		_txtQuiz.setText(_levelName + "\n" + String.format("%02d", seconds) + ":" + String.format("%02d", millis));
 	}
 	
+	/**
+	 * Countdown timer tick
+	 */
 	private EventHandler<ActionEvent> _tick = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
@@ -296,6 +317,7 @@ public class TrialView extends Parent {
 			long timeLeft = QUIZ_LENGTH - diff;
 			SetTimeText(timeLeft);
 			
+			// Once time reaches zero stop the timer and open the results screen
 			if (timeLeft <= 0) {
 				_timeline.stop();
 				

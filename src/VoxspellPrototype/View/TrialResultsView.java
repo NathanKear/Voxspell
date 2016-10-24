@@ -19,7 +19,7 @@ import javafx.scene.text.TextAlignment;
 
 /**
  * Display results of quiz for user to see and also present reward option
- * @author nathan
+ * @author nathan kear & charles carey
  *
  */
 public class TrialResultsView extends Parent {

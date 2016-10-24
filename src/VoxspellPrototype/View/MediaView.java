@@ -21,6 +21,11 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
+/**
+ * 
+ * @author nathan kear
+ *
+ */
 public class MediaView extends Parent {
 	
 	private final int BTN_HEIGHT = 50;
@@ -38,18 +43,23 @@ public class MediaView extends Parent {
 	
 	private boolean _specialReward;
 	
-	//private boolean _pauseVideo = false;
-	
+	/**
+	 * Create new media view window for user to view video reward
+	 * @param window
+	 * @param specialReward
+	 */
 	public MediaView(Window window,  boolean specialReward) {	
 		
 		this._window = window;
 		this._specialReward = specialReward;
 		_window.Show(false);
 		
-		testVLCJPresence();
+		//testVLCJPresence();
         
+		// Create and show new Swing JFrame
 		createJFrame().setVisible(true);
 		
+		// Start playing video
 		_mediaPlayer.playMedia(_currentMedia = "media/bunny.mp4");
 		_mediaPlayer.mute(false);
 	}
@@ -63,6 +73,10 @@ public class MediaView extends Parent {
         System.out.println("VLCJ version: " + LibVlc.INSTANCE.libvlc_get_version());
 	}
 	
+	/**
+	 * Create JFrame to use to hold VLCJ media player
+	 * @return
+	 */
 	private JFrame createJFrame() {
 		final JFrame frame = new JFrame("Suprise!");	
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

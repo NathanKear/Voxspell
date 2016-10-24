@@ -22,6 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class MistakeReviewView extends Parent {
 
 	private Window _window;
@@ -34,6 +39,14 @@ public class MistakeReviewView extends Parent {
 
 	private final HashMap<String, String> userAttempts;
 
+	/**
+	 * Create new mistakes view
+	 * @param window
+	 * @param attempts Map of word attempt to actual word spelling
+	 * @param correctWords Number of words the user got correct
+	 * @param wordListLength Length of wordlist the user is playing
+	 * @param listName Name of wordlist the user is playing
+	 */
 	public MistakeReviewView(Window window, HashMap<String, String> attempts, int correctWords, int wordListLength, String listName) {
 		this._window = window;
 		
@@ -65,14 +78,15 @@ public class MistakeReviewView extends Parent {
 		final String levelName = listName;
 		
 		returnToMenuBtn.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Return back to results screen
 				_window.SetWindowScene(new Scene(new QuizResultsView(_window, mastered, size, levelName, userAttempts, true), _window.GetWidth(), _window.GetHeight()));
 			}
 			
 		});
 		
+		// Create table to view words
 		TableColumn<Map.Entry<String, String>, String> wordsCol = new TableColumn<Map.Entry<String, String>, String>("Correct Spelling");
 		TableColumn<Map.Entry<String, String>, String> attemptsCol = new TableColumn<Map.Entry<String, String>, String>("Your Spelling");
 

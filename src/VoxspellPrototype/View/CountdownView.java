@@ -14,17 +14,29 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author nathan kear
+ *
+ */
 public class CountdownView extends Parent {
 
 	private Window _window;
+
+	// Start count down time
+	private int _count = 5;
 	
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final String BACK_COLOR = VoxspellPrototype.BACK_COLOR;
 	private final Text _txtCountDown;
-	private final Timeline _timeline;
-	private int _count = 5;
+	private final Timeline _timeline;	
 	private final String _wordlist;
 
+	/**
+	 * Create countdown screen
+	 * @param window
+	 * @param wordlist
+	 */
 	public CountdownView(Window window, String wordlist) {
 		super();
 
@@ -52,14 +64,18 @@ public class CountdownView extends Parent {
 		
 		new FFPlayTask(VoxspellPrototype.TICK_SOURCE).run();
 	}
-	
+
 	private EventHandler<ActionEvent> _tick = new EventHandler<ActionEvent>() {
+		/**
+		 * Tick timer down by one second on tick.
+		 */
 		@Override
 		public void handle(ActionEvent e) {
 			_txtCountDown.setText("\n\n\nReady in\n\n" + --_count + "\n\n\n\n\n\n\n\n\n\n\n");
 			
 			new FFPlayTask(VoxspellPrototype.TICK_SOURCE).run();
 			
+			// If counted down to zero open the trial screen.
 			if (_count <= 0) {
 				_window.SetWindowScene(new Scene(new TrialView(_window, _wordlist), _window.GetWidth(), _window.GetHeight()));
 				_timeline.stop();

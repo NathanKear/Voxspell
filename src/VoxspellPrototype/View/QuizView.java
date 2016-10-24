@@ -26,6 +26,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class QuizView extends Parent {
 
 	private Window _window;
@@ -64,6 +69,11 @@ public class QuizView extends Parent {
 	private int _masteredWords = 0;
 	private HashMap<String, String> _userAttempts = new HashMap<String, String>();
 
+	/**
+	 * Create new quiz screen to test user
+	 * @param window
+	 * @param wordlistName
+	 */
 	public QuizView(Window window, String wordlistName) {
 		this._window = window;
 
@@ -110,7 +120,12 @@ public class QuizView extends Parent {
 
 		new FestivalSpeakTask("Spell " + currentWord()).run();
 	}
-
+	
+	/**
+	 * Build and return instance of new center pane
+	 * @param desiredHeight Height of center pane controls
+	 * @return
+	 */
 	private Pane buildCenterPane(double desiredHeight) {
 		// Build center pane
 		HBox centerPane = new HBox(HBX_SPACING);
@@ -244,6 +259,10 @@ public class QuizView extends Parent {
 		}
 	}
 
+	/**
+	 * Get current word that the user has to spell
+	 * @return
+	 */
 	private String currentWord() {
 		return _words.get(_wordIndex);
 	}

@@ -13,6 +13,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * 
+ * @author nathan kear
+ *
+ */
 public class HelpView extends Parent {
 
 	private Window _window;
@@ -27,6 +32,8 @@ public class HelpView extends Parent {
 	private final Insets INSETS = new Insets(20, 20, 20, 20);
 	private final Insets TXT_INSETS = new Insets(20, 20, 20, 20);
 	private final int VBX_GAP = 10;
+	
+	// Help text to display
 	private final String TXT_HELP = 
 			"\n"
 			+ "\n"
@@ -75,6 +82,10 @@ public class HelpView extends Parent {
 			+ "		Clock tick from https://www.freesound.org/people/Jagadamba/sounds/254316/\n"
 			+ "";
 
+	/**
+	 * Create new help window
+	 * @param window
+	 */
 	public HelpView(Window window) {
 		this._window = window;
 		
@@ -107,6 +118,7 @@ public class HelpView extends Parent {
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		
+		// Return to menu button action
 		returnToMenuBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {

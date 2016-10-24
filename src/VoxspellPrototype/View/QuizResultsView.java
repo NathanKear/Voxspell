@@ -19,7 +19,7 @@ import javafx.scene.text.TextAlignment;
 
 /**
  * Display results of quiz for user to see and also present reward option
- * @author nathan
+ * @author nathan kear & charles carey
  *
  */
 public class QuizResultsView extends Parent {
@@ -41,6 +41,15 @@ public class QuizResultsView extends Parent {
 	private final double BTNWIDTH_SCREENWIDTH_RATIO = 0.666;
 	private final int BTN_HEIGHT = 70;
 
+	/**
+	 * Create new results view for user to see their results from quiz
+	 * @param window
+	 * @param correctWords Number of words user got correct
+	 * @param wordListLength Total number of words they were tested on
+	 * @param listName Name of wordlist they were tested on
+	 * @param userAttempts Map of user attempts to actual word spelling
+	 * @param mute Mute or play cheering sound effect
+	 */
 	public QuizResultsView(Window window, int correctWords, int wordListLength, String listName, HashMap<String, String> userAttempts, boolean mute) {
 		this._window = window;
 

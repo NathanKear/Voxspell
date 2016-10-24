@@ -20,6 +20,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class OptionsView extends Parent {
 
 	private Window _window;
@@ -37,6 +42,10 @@ public class OptionsView extends Parent {
 	private final int CMB_WIDTH = 400;
 	private final int CMB_HEIGHT = 40;
 
+	/**
+	 * Create new options screen for user to change text to speech parameters
+	 * @param window
+	 */
 	public OptionsView(Window window) {
 		super();
 
@@ -104,7 +113,7 @@ public class OptionsView extends Parent {
 		voiceSpeedComboBox.setPrefHeight(CMB_HEIGHT);
 		voiceSpeedComboBox.setPrefWidth(CMB_WIDTH);
 
-		
+		// Load current voice speed
 		double currentSpeed = FestivalSpeakTask.getSpeed();
 
 		int indexToGet = 0;
@@ -140,7 +149,7 @@ public class OptionsView extends Parent {
 		voiceTypeComboBox.setPrefHeight(CMB_HEIGHT);
 		voiceTypeComboBox.setPrefWidth(CMB_WIDTH);
 		
-		
+		// Load current voice type
 		String currentVoice = FestivalSpeakTask.getVoice();
 
 		indexToGet = 0;
@@ -170,6 +179,7 @@ public class OptionsView extends Parent {
 			public void changed(ObservableValue<? extends String> arg0,
 					String oldValue, String newValue) {
 					String voice = "";
+					// Set new voice type and then play example of new voice
 				if(newValue.trim().equals("Male Voice 1")) {
 					voice = "kal_diphone";
 				} else if (newValue.trim().equals("Male Voice 2")) {
@@ -188,6 +198,7 @@ public class OptionsView extends Parent {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String oldValue, String newValue) {
+					// Set new voice speed and then play example of new voice
 				if (newValue.trim().equals("Normal")) {
 					FestivalSpeakTask.SetSpeed(1.0);
 					new FestivalSpeakTask("Normal speed").run();

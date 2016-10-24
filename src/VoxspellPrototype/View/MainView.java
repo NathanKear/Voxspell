@@ -21,11 +21,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class MainView extends Parent {
 
 	private Window _window;
 		
-	// Constants gone wild!
 	private final String TXT_WELCOME = "Welcome to VoxSpell";
 	private final int TXT_FONT_SIZE = VoxspellPrototype.TXT_FONT_SIZE;
 	private final int BTN_FONT_SIZE = VoxspellPrototype.BTN_FONT_SIZE;
@@ -51,7 +55,10 @@ public class MainView extends Parent {
 	private final Image IMG_STATS = new Image(getClass().getResourceAsStream("/media/images/btnStatsIcon.png"));
 	private final Image IMG_TRIAL = new Image(getClass().getResourceAsStream("/media/images/btnTrialIcon.png"));
 	
-	
+	/**
+	 * Create main screen
+	 * @param window
+	 */
 	public MainView(Window window) {
 		super();
 		
@@ -113,9 +120,6 @@ public class MainView extends Parent {
 		btnHelp.setStyle("-fx-font: " + (BTN_FONT_SIZE + 10) + " arial;" + 
 				" -fx-base: " + BTN_COLOR + ";" + 
 				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
-//		btnQuit.setStyle("-fx-font: " + BTN_FONT_SIZE + " arial;" + 
-//				" -fx-base: " + BTN_COLOR + ";" + 
-//				" -fx-text-fill: " + BTN_FONT_COLOR + ";");
 		
 		// Set width and height of buttons
 		btnNew.setPrefWidth(BTN_LRG_WIDTH); 
@@ -130,9 +134,6 @@ public class MainView extends Parent {
 		btnAddList.setPrefWidth(BTN_LRG_WIDTH); 
 		btnAddList.setPrefHeight(BTN_LRG_HEIGHT);
 		
-//		btnQuit.setPrefWidth(BTN_SML_WIDTH); 
-//		btnQuit.setPrefHeight(BTN_SML_HEIGHT);
-		
 		btnOptions.setPrefWidth(BTN_SML_WIDTH); 
 		btnOptions.setPrefHeight(BTN_SML_HEIGHT);
 		
@@ -144,8 +145,6 @@ public class MainView extends Parent {
 		root.add(btnTrial, 1, 3);
 		root.add(btnAddList, 2, 2);
 		root.add(btnStats, 2, 3);
-//		root.add(btnQuit, 3, 3);
-//		GridPane.setValignment(btnQuit, VPos.BOTTOM);
 		root.add(btnOptions, 0, 3);
 		GridPane.setValignment(btnOptions, VPos.BOTTOM);
 		root.add(btnHelp, 3, 3);
@@ -155,6 +154,7 @@ public class MainView extends Parent {
 		btnNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Open level selection screen for new quiz
 				_window.SetWindowScene(new Scene(new LevelSelectionView(_window, QuizType.Normal), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
@@ -162,6 +162,7 @@ public class MainView extends Parent {
 		btnTrial.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Open level selection screen for time trial quiz
 				_window.SetWindowScene(new Scene(new LevelSelectionView(_window, QuizType.Trial), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
@@ -169,6 +170,7 @@ public class MainView extends Parent {
 		btnStats.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Open statistics view
 				_window.SetWindowScene(new Scene(new StatsView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
@@ -178,18 +180,21 @@ public class MainView extends Parent {
 			public void handle(ActionEvent arg0) {
 				FileChooser chooser = new FileChooser();
 				
+				// Set filechooser directory to the wordlist directory
 				File wordlistDir = new File("WordLists");
 				
 				if (wordlistDir.exists()) {
 					chooser.setInitialDirectory(wordlistDir);
 				}
 				
+				// Set file chooser title and limit to searching for .txt files
 				chooser.setTitle("Select a new list to add");
 				chooser.getExtensionFilters().addAll(
 						new FileChooser.ExtensionFilter(".txt", "*.txt"),
 						new FileChooser.ExtensionFilter("All", "*.*"));
 				File file = chooser.showOpenDialog(_window.GetWindowStage());
 				
+				// Set wordlist to open the new wordfile
 				if (file != null) {
 					WordListModel.SetWordFile(file.getPath());
 					WordListModel.GetWordList().ReloadWordList();
@@ -197,18 +202,10 @@ public class MainView extends Parent {
 			}	
 		});
 		
-//		btnQuit.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				WordList wordList = WordList.GetWordList();
-//				wordList.saveWordListToDisk();
-//				Platform.exit();
-//			}	
-//		});
-		
 		btnHelp.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Help button to open help screen
 				_window.SetWindowScene(new Scene(new HelpView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});
@@ -216,6 +213,7 @@ public class MainView extends Parent {
 		btnOptions.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				// Options button to open options screen
 				_window.SetWindowScene(new Scene(new OptionsView(_window), _window.GetWidth(), _window.GetHeight()));
 			}	
 		});

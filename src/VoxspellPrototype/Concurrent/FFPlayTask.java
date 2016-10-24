@@ -4,7 +4,7 @@ import javafx.concurrent.Task;
 
 /**
  * Play audio file through ffplay.
- * @author nathan
+ * @author nathan kear
  *
  */
 public class FFPlayTask extends Task<Void> {

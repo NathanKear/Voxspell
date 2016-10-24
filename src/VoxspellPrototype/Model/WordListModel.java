@@ -15,6 +15,11 @@ import java.util.Map;
 import VoxspellPrototype.VoxspellPrototype;
 import VoxspellPrototype.View.PopupWindow;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 @SuppressWarnings("serial")
 public class WordListModel extends ArrayList<LevelModel> {
 
@@ -26,6 +31,10 @@ public class WordListModel extends ArrayList<LevelModel> {
 		super();
 	}
 	
+	/**
+	 * Set wordfile to be used in the quiz
+	 * @param filename URI of text word file
+	 */
 	public static void SetWordFile(String filename) {
 		// Save stats of current list to file
 		WordListModel.GetWordList().saveWordListToDisk();
@@ -196,9 +205,7 @@ public class WordListModel extends ArrayList<LevelModel> {
 					// Line contains level metadata
 					if (line.contains("!")) {
 						
-						// Trim line down to just the level to replace
-						// line = line.replaceAll("!unlock", "");
-						
+						// Get level name, unlock status and record for time trial
 						String levelName = line.split("#")[1];
 						boolean  unlock = line.split("#")[2] == "unlocked";
 						int levelRecord = Integer.parseInt(line.split("#")[3]);
@@ -215,8 +222,10 @@ public class WordListModel extends ArrayList<LevelModel> {
 							}
 						}
 						
+						// Line contains word metadata
 					} else {
 						
+						// Get word, list word is from and stats for word
 						String level = line.split("#")[0];
 						String word = line.split("#")[1];
 						LevelModel l = wordlist.getLevelFromName(level);
@@ -321,6 +330,10 @@ public class WordListModel extends ArrayList<LevelModel> {
 		return getLevelFromName(wordlistName).GetWordsBias(listCount);
 	}
 
+	/**
+	 * Get count of bronze silver and gold medals earned in current wordlist
+	 * @return 3 element int array representing bronze in position 0, silver in position 1 and gold in position 2
+	 */
 	public int[] GetMedalCount() {
 		int[] medalCount = new int[3];
 
@@ -343,6 +356,12 @@ public class WordListModel extends ArrayList<LevelModel> {
 		return medalCount;
 	}
 	
+	/**
+	 * Add statistic (i.e. success or failure) to given word
+	 * @param word Word to add stat to
+	 * @param list List word is in
+	 * @param success Is success
+	 */
 	public void AddWordStat(String word, String list, boolean success) {
 		getLevelFromName(list).AddToWordStat(word, success);
 	}

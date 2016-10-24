@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class LevelModel {
 	
 	private final int _goldThreshold = 18;
@@ -104,6 +109,7 @@ public class LevelModel {
 		List<Character> wordStats = _levelMap.get(word);
 		int count = 0;
 		
+		// Count instances of 'p' and 'f' in word stats file
 		for (int i = wordStats.size() - 1; i >= Math.max(0, wordStats.size() - history); i--) {
 			if (success && wordStats.get(i) == 'p') {
 				count++;
@@ -115,15 +121,21 @@ public class LevelModel {
 		return count;
 	}
 	
+	/**
+	 * Get overall % success rate for spelling words in level formatted as a string
+	 * @return success rate formatted as %aa.a or - if zero attempts made
+	 */
 	public String GetStatSuccessRateFormattedOverall() {
 		int successes = 0;
 		int totalAttempts = 0;
 		
+		// Count total successful spelling attempts and the total attempts overall
 		for (String word : _levelMap.keySet()) {
 			successes += GetStatCount(word, true, 5);
 			totalAttempts += GetAttemptCount(word);
 		}
 		
+		// If zero total attempts return "-" rather than dividing by zero.
 		if (totalAttempts == 0)
 			return "-";
 		
@@ -136,6 +148,11 @@ public class LevelModel {
 		return _levelMap.get(word).size();
 	}
 	
+	/**
+	 * Get success rate for specified word
+	 * @param word Word to get success rate of
+	 * @return
+	 */
 	public double GetStatSuccessRate(String word) {
 		int successes = GetStatCount(word, true, Integer.MAX_VALUE);
 		int totalAttempts = GetAttemptCount(word);
@@ -143,10 +160,16 @@ public class LevelModel {
 		return (double)successes / totalAttempts;
 	}
 	
+	/**
+	 * Get success rate % for specified word formatted as a string
+	 * @param word Word to get success rate of
+	 * @return Success rate expressed as percentage %aa.a or - if zero attempts made
+	 */
 	public String GetStatSuccessRateFormatted(String word) {
 		int successes = GetStatCount(word, true, Integer.MAX_VALUE);
 		int totalAttempts = GetAttemptCount(word);
 		
+		// Return - to avoid dividing by zero
 		if (totalAttempts == 0)
 			return "-";
 		
@@ -189,6 +212,12 @@ public class LevelModel {
 		}
 	}
 	
+	/**
+	 * Get random set of unique words from wordlist
+	 * @param wordCount Max unique words to return. 
+	 * Note if wordCount is greater than the number of words in list then the function simply return all words in the list
+	 * @return
+	 */
 	public List<String> GetWordsNonBias(int wordCount) {
 		List<String> list  = new ArrayList<String>(_levelMap.keySet());
 		Collections.shuffle(list);
@@ -211,6 +240,11 @@ public class LevelModel {
 		_record = 0;
 	}
 	
+	/**
+	 * Submit the users results from time trial
+	 * @param correct Total words correctly spelled
+	 * @return true if new record, false if not a new record
+	 */
 	public boolean SubmitCorrectResponses(int correct) {
 		if (correct > this._record) {
 			this._record = correct;
@@ -220,6 +254,10 @@ public class LevelModel {
 		}
 	}
 	
+	/**
+	 * Get the best medal that has currently been gained in this level
+	 * @return
+	 */
 	public Medal GetMedal() {
 		if (this._record >= _goldThreshold) {
 			return Medal.Gold;
@@ -232,18 +270,34 @@ public class LevelModel {
 		return Medal.None;
 	}
 	
+	/**
+	 * Get current record spelling attempt for wordlist
+	 * @return
+	 */
 	public int GetCurrentRecord() {
 		return this._record;
 	}
 	
+	/**
+	 * Get number of correct answers needed to get gold medal
+	 * @return
+	 */
 	public int GetGoldThreshold() {
 		return this._goldThreshold;
 	}
 	
+	/**
+	 * Get number of correct answers needed to get silver medal
+	 * @return
+	 */
 	public int GetSilverThreshold() {
 		return this._silverThreshold;
 	}
 	
+	/**
+	 * Get number of correct answers needed to get bronze medal
+	 * @return
+	 */
 	public int GetBronzeThreshold() {
 		return this._bronzeThreshold;
 	}

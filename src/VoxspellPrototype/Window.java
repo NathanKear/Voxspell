@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * JavaFX window wrapper
- * @author nathan
+ * @author nathan kear
  *
  */
 public class Window {
@@ -15,10 +15,18 @@ public class Window {
 	private int _width, _height;
 	private Stage _window;
 	
+	/**
+	 * Get windows width
+	 * @return width of window
+	 */
 	public int GetWidth() {
 		return _width;
 	}
 	
+	/**
+	 * Get windows height
+	 * @return height of window
+	 */
 	public int GetHeight() {
 		return _height;
 	}
@@ -47,6 +55,12 @@ public class Window {
 		return _window;
 	}
 	
+	/**
+	 * Create instance of window using existing Stage object
+	 * @param window Stage that Window instance encapsulates
+	 * @param width Desired width of window
+	 * @param height Desired height of window
+	 */
 	public Window(Stage window, int width, int height) {
 		this._window = window;
 

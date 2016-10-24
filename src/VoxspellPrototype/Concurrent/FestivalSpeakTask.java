@@ -2,6 +2,11 @@ package VoxspellPrototype.Concurrent;
 
 import javafx.concurrent.Task;
 
+/**
+ * 
+ * @author nathan kear & charles carey
+ *
+ */
 public class FestivalSpeakTask extends Task<Void> {
 
 	private String _word;
